@@ -1,0 +1,113 @@
+.hero-gradient {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f9f9f9; /* 기본 배경 */
+    box-sizing: border-box;
+    padding: 0 5%;
+    text-align: center;
+    flex-direction: column;
+    overflow: hidden; /* pseudo-element가 튀어나오는 걸 방지 */
+  }
+  
+  .hero-gradient::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+      /* radial gradients: 브러시 느낌 */
+      radial-gradient(circle at 20% 20%, #a8ff65 0%, transparent 55%),
+      radial-gradient(circle at 80% 25%, #ffc07f 0%, transparent 55%),
+      radial-gradient(circle at 75% 75%, #ffb3c6 0%, transparent 50%),
+      /* 상하 부드럽게 페이드되는 linear gradient */
+      linear-gradient(to bottom,
+        rgba(249, 249, 249, 1) 0%,
+        rgba(249, 249, 249, 0) 25%,   /* 상단 fade 구간 늘림 */
+        rgba(249, 249, 249, 0) 75%,   /* 중앙 투명 유지 */
+        rgba(249, 249, 249, 1) 100%   /* 하단 fade 구간 늘림 */
+      );
+    background-blend-mode: screen;
+    z-index: 0;
+  }
+  
+  
+  
+  .hero-gradient-content {
+    position: relative;
+    z-index: 1; /* pseudo-element 위에 텍스트와 버튼 표시 */
+  }
+  
+  .hero-gradient-content {
+    max-width: 800px;
+  }
+  
+  .eyebrow-text {
+    font-size: 23px;
+    font-weight: 600;
+    color: #333;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+  
+  .hero-gradient-title {
+    font-size: 55px;
+    font-weight: 800;
+    margin-bottom: 35px;
+    line-height: 1.2;
+    color: #111;
+  }
+  
+  .hero-gradient-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .hero-gradient-buttons button {
+    padding: 14px 32px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 6px;
+    margin-top: 20px;
+    cursor: pointer;
+    border: none;
+  }
+  
+  .btn-black {
+    background: black;
+    color: white;
+  }
+  
+  .btn-black:hover {
+    opacity: 0.85;
+  }
+  
+  .btn-white {
+    background: white;
+    color: black;
+    border: 2px solid black;
+  }
+  
+  .btn-white:hover {
+    opacity: 0.85;
+  }
+  
+  /* 반응형 */
+  @media (max-width: 768px) {
+    .hero-gradient-title {
+      font-size: 32px;
+    }
+  
+    .hero-gradient-buttons {
+      flex-direction: column;
+      gap: 12px;
+    }
+  }
+  

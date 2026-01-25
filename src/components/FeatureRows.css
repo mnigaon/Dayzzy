@@ -1,0 +1,83 @@
+.feature-rows {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    margin-top: 100px;
+  }
+  
+  /* 각 Row를 2등분 (좌/우) */
+  .feature-row {
+    display: flex;
+    width: 100%;
+    
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .feature-block {
+    flex: 1; /* 각 블록 화면 절반 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    box-sizing: border-box;
+  }
+  
+  .feature-text {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  
+  .feature-text h2 {
+    font-size: 36px;
+    font-weight: 800;
+    margin-bottom: 15px;
+  }
+  
+  .feature-text p {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 20px;
+  }
+  
+  .feature-button {
+    padding: 12px 28px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+  
+  .feature-button:hover {
+    opacity: 0.85;
+  }
+  
+  .feature-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 12px;
+  }
+  
+  /* 반응형 */
+  @media (max-width: 1024px) {
+    .feature-row {
+      flex-direction: column;
+      min-height: auto;
+      text-align: center;
+    }
+  
+    .feature-block {
+      padding: 20px;
+    }
+  
+    .feature-image img {
+      max-height: 300px;
+    }
+  }
+   
+  

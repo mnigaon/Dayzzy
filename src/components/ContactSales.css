@@ -1,0 +1,51 @@
+.contact-sales {
+    max-width: 600px;
+    margin: 140px auto;
+    padding: 0 5%;
+    text-align: left;
+  }
+  
+  .contact-sales h1 {
+    font-size: 40px;
+    font-weight: 800;
+    margin-bottom: 10px;
+  }
+  
+  .contact-sales p {
+    color: #666;
+    margin-bottom: 30px;
+  }
+  
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .contact-form input,
+  .contact-form textarea {
+    padding: 14px;
+    font-size: 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+  }
+  
+  .contact-form textarea {
+    min-height: 120px;
+    resize: vertical;
+  }
+  
+  .contact-form button {
+    background: black;
+    color: white;
+    padding: 14px;
+    border: none;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .contact-form button:hover {
+    opacity: 0.85;
+  }
+  

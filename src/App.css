@@ -1,0 +1,13 @@
+/* 최소 스켈레톤, 나중에 스타일링 추가 가능 */
+body {
+  margin: 0;
+  padding-top: 72px; /* 헤더 높이만큼 */
+}
+
+.app-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
