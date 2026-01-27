@@ -1,91 +1,213 @@
+/* DashboardHome.css */
 .dashboard-home {
-    padding: 1rem;
-  }
-  
+  padding: 1rem;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+}
+
+/* 카드 공통 스타일 */
+.card {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  cursor: pointer; /* 호버 시 포인터 */
+  min-height: 180px; /* 세로 길이 늘림 */
+  max-width: 300px;  /* 가로 길이 조금 줄임 */
+  position: relative; /* hover 텍스트 위치용 */
+}
+
+/* 카드 헤드라인 */
+.card h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: all 0.3s ease;
+}
+
+/* 워크스페이스 리스트 */
+.workspace-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* 워크스페이스 카드 */
+.workspace-card {
+  background-color: #648CFF; /* 카드 기본 배경 파란색 */
+  color: white; /* 기본 텍스트 흰색 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  min-height: 180px;
+  max-width: 300px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  flex-direction: column;
+}
+
+/* 워크스페이스 카드 헤드라인 */
+.workspace-card .workspace-title {
+  color: white; /* 호버 전 흰색 */
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* 호버 시 중앙 텍스트 */
+.workspace-card .hover-text {
+  color: #648cff;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* 호버 배경색 변경 */
+.workspace-card:hover {
+  background-color: #f0f4ff;
+}
+
+/* 집중 시간 카드 */
+.focus-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.focus-card:hover {
+  background-color: #e8f0ff;
+}
+
+/* 호버 텍스트 중앙 표시 */
+.hover-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 600;
+  color: #648cff;
+  font-size: 1rem;
+}
+
+/* 진행 원형 */
+.progress-ring {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin: 0.5rem auto;
+}
+
+.progress-ring svg {
+  transform: rotate(-90deg);
+  width: 100%;
+  height: 100%;
+}
+
+.circle-bg {
+  fill: none;
+  stroke: #eee;
+  stroke-width: 3.8;
+}
+
+.circle {
+  fill: none;
+  stroke: #648CFF;
+  stroke-width: 3.8;
+  stroke-linecap: round;
+  transition: stroke-dasharray 0.3s ease;
+}
+
+.focus-time {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.mode {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 0.3rem;
+}
+
+
+/* =========================
+   🌙 Dark mode – Dashboard Home Cards
+========================= */
+
+/* 카드 공통 */
+.dark .dashboard-home .card {
+  background: #1e1f24;
+  border: 1px solid #2a2b31;
+  color: #ffffff;
+  box-shadow: none;
+}
+
+/* hover */
+.dark .dashboard-home .card:hover {
+  background: #25262c;
+  transform: translateY(-4px);
+}
+
+/* 제목 */
+.dark .dashboard-home h3 {
+  color: #ffffff;
+}
+
+/* hover 텍스트 */
+.dark .hover-text {
+  color: #9ecbff;
+}
+
+/* focus 시간 숫자 */
+.dark .focus-time {
+  color: #ffffff;
+}
+
+/* mode 텍스트 */
+.dark .mode {
+  color: #bdbdbd;
+}
+
+/* =========================
+   🌙 Progress Ring
+========================= */
+
+/* 배경 원 */
+.dark .circle-bg {
+  stroke: #2f3138;
+}
+
+/* 진행 원 */
+.dark .circle {
+  stroke: #648cff;
+}
+
+
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
   .cards {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+    grid-template-columns: 1fr;
   }
-  
-  .card {
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .card h3 {
-    margin-bottom: 0.5rem;
-    font-size: 1.1rem;
-    color: #333;
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-  }
-  
-    .workspace-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-  
-  /* 오늘 집중 시간 카드 */
-  .focus-card {
-    align-items: center;
-    text-align: center;
-  }
-  
-  .progress-ring {
-    position: relative;
-    width: 80px;
-    height: 80px;
-    margin: 0.5rem auto;
-  }
-  
-  .progress-ring svg {
-    transform: rotate(-90deg);
-    width: 100%;
-    height: 100%;
-  }
-  
-  .circle-bg {
-    fill: none;
-    stroke: #eee;
-    stroke-width: 3.8;
-  }
-  
-  .circle {
-    fill: none;
-    stroke: #648CFF;
-    stroke-width: 3.8;
-    stroke-linecap: round;
-    transition: stroke-dasharray 0.3s ease;
-  }
-  
-  .focus-time {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 1rem;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  .mode {
-    font-size: 0.8rem;
-    color: #666;
-    margin-top: 0.3rem;
-  }
-  
-  /* 모바일 대응 */
-  @media (max-width: 768px) {
-    .cards {
-      grid-template-columns: 1fr;
-    }
-  }
+}
+
   
   

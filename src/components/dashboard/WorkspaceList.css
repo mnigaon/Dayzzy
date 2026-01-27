@@ -116,3 +116,59 @@
     opacity: 0.8;
   }
   
+
+  /* =========================
+   🌙 Dark mode – Workspace Card
+========================= */
+
+/* 카드 */
+.dark .workspace-card {
+  background: #1e1f24;
+  border: 1px solid #2a2b31;
+  color: #ffffff;
+  box-shadow: none;
+}
+
+/* hover */
+.dark .workspace-card:hover {
+  background: #25262c;
+  transform: translateY(-2px);
+}
+
+/* 이름 텍스트 */
+.dark .workspace-card .name {
+  color: #ffffff;
+}
+
+/* 아이콘 */
+.dark .workspace-card .icon {
+  color: #ffffff;
+}
+
+/* 버튼 영역 */
+.dark .workspace-card-buttons button {
+  background: #2a2b31;
+  border: 1px solid #3a3b42;
+  color: #ccc;
+}
+
+/* hover */
+.dark .workspace-card-buttons button:hover {
+  background: #3a3b42;
+  color: #fff;
+}
+
+/* pin 버튼 강조 */
+.dark .pin-btn {
+  color: #9ecbff;
+}
+
+/* delete 버튼 위험색 */
+.dark .delete-btn {
+  color: #ff8b8b;
+}
+
+.dark .delete-btn:hover {
+  background: #ff5c5c;
+  color: #fff;
+}

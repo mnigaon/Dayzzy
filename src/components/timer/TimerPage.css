@@ -1,115 +1,241 @@
-/* src/components/timer/TimerPage.css */
-
-/* 전체 페이지 중앙 정렬 */
 .timer-page-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem;
-    font-family: 'Arial', sans-serif;
-    margin-right: 130px;
-  }
-  
-  /* 위 제목과 모드 */
-  .timer-header {
-    text-align: center;
-    font-weight: bold;
-  }
-  
-  .timer-header h2 {
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Inter", "Arial", sans-serif;
+}
 
-  .pomodoro-sentence {
-    text-align: center;
-    font-weight: bold;
-    color: #333;
-  }
+.timer-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
 
-  .pomodoro-info {
-    margin-bottom: 25px;
-  }
-  
-  .timer-header p.mode {
-    font-size: 1.1rem;
-    margin-top: 0.3rem;
-    color: #333;
-  }
-  
-  .timer-circle {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background-color: #648CFF;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 3rem;
-    font-weight: bold;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    margin: 1rem 0;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .timer-circle::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    padding: 5px; /* 링 두께 */
-    background: conic-gradient(
-      rgba(255,255,255,0.5) var(--progress, 0deg),
-      rgba(255,255,255,0.1) 0deg
-    );
-    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 5px), black calc(100% - 5px));
-    mask: radial-gradient(farthest-side, transparent calc(100% - 5px), black calc(100% - 5px));
-    transform: rotate(-90deg);
-    transition: background 0.2s linear; /* 부드러운 진행률 업데이트 */
-  }
-  
-  /* 버튼 */
-  .timer-controls {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-  
-  .timer-controls button {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    border-radius: 5px;
-    margin-top: 20px;
-    border: none;
-    background-color: black;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: transform 0.2s, background 0.2s;
-  }
-  
-  .timer-controls button:hover {
-    transform: scale(1.05);
-    background-color: #506fcc;
-  }
-  
-  /* 오늘 집중 시간 */
-  .focused-time {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-    margin-top: 10px;
-    font-weight: bold;
-    color: #333;
-    text-align: center;
-  }
-  
-  /* Pomodoro 설명 */
-  .pomodoro-info {
-    font-size: 0.9rem;
-    font-weight: bold;
-    color: #666;
-    text-align: center;
-  }
-  
+.timer-header h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem; /* 버튼과 간격 */
+}
+
+/* Report 버튼 */
+.report-btn {
+  margin-top: 10px;
+  padding: 0.4rem 0.8rem;
+  background-color: #648cff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.report-btn:hover {
+  background-color: #5071d0;
+}
+
+/* Mode Buttons */
+.timer-modes {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+  margin-top: 25px;
+}
+
+.timer-modes button {
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  background: white;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.timer-modes button:hover {
+  background: #f3f6ff;
+}
+
+.timer-modes button.active {
+  background: #648cff;
+  color: white;
+  border-color: #648cff;
+  font-weight: 600;
+}
+
+/* Circle Timer */
+.timer-circle {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background-color: #648cff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 3rem;
+  font-weight: 800;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  margin: 1.2rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.timer-circle::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  padding: 6px;
+  background: conic-gradient(
+    rgba(255, 255, 255, 0.7) var(--progress, 0deg),
+    rgba(255, 255, 255, 0.15) 0deg
+  );
+  -webkit-mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 6px),
+    black calc(100% - 6px)
+  );
+  mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 6px),
+    black calc(100% - 6px)
+  );
+  transform: rotate(-90deg);
+  transition: background 0.2s linear;
+}
+
+/* Label */
+.timer-label {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  color: #333;
+}
+
+/* Controls */
+.timer-controls {
+  display: flex;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.timer-controls button {
+  padding: 0.55rem 1.3rem;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  border: none;
+  background-color: black;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.2s ease;
+}
+
+.timer-controls button:hover {
+  transform: scale(1.05);
+  background-color: #506fcc;
+}
+
+/* Description */
+.pomodoro-sentence {
+  text-align: center;
+  font-weight: 500;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin-top: 0.8rem;
+  color: #555;
+}
+
+
+/* =========================
+   🌙 Dark mode – Timer Page
+========================= */
+
+/* 전체 배경 */
+.dark .timer-page-container {
+
+  color: #ffffff;
+}
+
+/* 헤더 */
+.dark .timer-header h2 {
+  color: #ffffff;
+}
+
+/* =========================
+   버튼 공통
+========================= */
+
+.dark .timer-page-container button {
+  background: #2a2b31;
+  color: #ffffff;
+  border: 1px solid #3a3b42;
+}
+
+.dark .timer-page-container button:hover {
+  background: #3a3b42;
+}
+
+/* =========================
+   Report 버튼
+========================= */
+
+.dark .report-btn {
+  background: #648cff;
+  border: none;
+  color: white;
+}
+
+.dark .report-btn:hover {
+  background: #7a9cff;
+}
+
+/* =========================
+   모드 버튼
+========================= */
+
+.dark .timer-modes button {
+  background: #2a2b31;
+  color: #ccc;
+}
+
+.dark .timer-modes button.active {
+  background: #648cff;
+  color: white;
+}
+
+/* =========================
+   타이머 원형
+========================= */
+
+.dark .timer-circle {
+  background: #1e1f24;
+  color: #ffffff;
+  box-shadow: none;
+}
+
+/* =========================
+   텍스트
+========================= */
+
+.dark .timer-label {
+  color: #ffffff;
+}
+
+.dark .pomodoro-sentence {
+  color: #bdbdbd;
+}
+
+/* =========================
+   컨트롤 버튼
+========================= */
+
+.dark .timer-controls button {
+  background: #2a2b31;
+}
+
+.dark .timer-controls button:hover {
+  background: #648cff;
+}
+

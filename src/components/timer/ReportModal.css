@@ -1,0 +1,208 @@
+/* src/components/timer/ReportModal.css */
+
+.report-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+  }
+  
+  .report-modal {
+    width: 90%;
+    max-width: 720px;
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem 1.8rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    animation: fadeUp 0.25s ease;
+  }
+  
+  @keyframes fadeUp {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  /* Header */
+  .report-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  
+  .report-header h3 {
+    font-size: 1.3rem;
+    font-weight: 800;
+  }
+  
+  .close-btn {
+    border: none;
+    background: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    opacity: 0.6;
+  }
+  
+  .close-btn:hover {
+    opacity: 1;
+  }
+  
+  /* Tabs */
+  .report-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.2rem;
+  }
+  
+  .report-tabs button {
+    padding: 0.45rem 1rem;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    background: white;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .report-tabs button:hover {
+    background: #f3f6ff;
+  }
+  
+  .report-tabs button.active {
+    background: #648cff;
+    color: white;
+    border-color: #648cff;
+    font-weight: 600;
+  }
+  
+  /* Content */
+  .report-content h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+  }
+  
+  /* Summary Cards */
+  .summary-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.8rem;
+  }
+  
+  .summary-card {
+    background: #f7f9ff;
+    border-radius: 12px;
+    padding: 0.8rem;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  }
+  
+  /* Chart Placeholder */
+  .chart-placeholder {
+    height: 180px;
+    background: #f0f3ff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: #555;
+  }
+  
+  /* Ranking */
+  .ranking-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .ranking-list li {
+    padding: 0.5rem 0;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #eee;
+  }
+
+  
+  /* =========================
+   🌙 Dark mode – Report Modal
+========================= */
+
+/* 오버레이 */
+.dark .report-overlay {
+  background: rgba(0, 0, 0, 0.65);
+}
+
+/* 모달 카드 */
+.dark .report-modal {
+  background: #1e1f24;
+  color: #ffffff;
+  border: 1px solid #2a2b31;
+  box-shadow: none;
+}
+
+/* 헤더 */
+.dark .report-header h3 {
+  color: #ffffff;
+}
+
+/* 닫기 버튼 */
+.dark .close-btn {
+  color: #aaa;
+}
+
+.dark .close-btn:hover {
+  color: #fff;
+}
+
+/* 탭 */
+.dark .report-tabs button {
+  background: #2a2b31;
+  color: #ccc;
+  border: 1px solid #3a3b42;
+}
+
+.dark .report-tabs button.active {
+  background: #648cff;
+  color: white;
+}
+
+/* summary 카드 */
+.dark .summary-card {
+  background: #2a2b31;
+  color: #fff;
+  border: 1px solid #3a3b42;
+}
+
+/* ranking */
+.dark .ranking-list li {
+  border-bottom: 1px solid #2f3036;
+  color: #e5e7eb;
+}
+
+/* 필터 버튼 (Week / Month / Year) */
+.dark .report-content button {
+  background: #2a2b31;
+  color: #ccc;
+  border: 1px solid #3a3b42;
+}
+
+.dark .report-content button.active {
+  background: #648cff;
+  color: white;
+}
+
+/* 섹션 제목 */
+.dark .report-content h4 {
+  color: #ffffff;
+}

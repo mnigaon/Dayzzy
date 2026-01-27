@@ -1,17 +1,18 @@
 // src/components/timer/FloatingTimer.jsx
 import React from "react";
-import { useTimer } from "../../context/TimerContext"; // 타이머 상태 가져오기
+import { useTimer } from "../../context/TimerContext";
 import "./FloatingTimer.css";
 
-export default function FloatingTimer() {
-  const { isRunning } = useTimer(); // 타이머 실행 여부 확인
+export default function FloatingTimer({ onClick }) {
+  const { isRunning } = useTimer();
 
-  if (!isRunning) return null; // 실행 중이 아니면 렌더링하지 않음
+  if (!isRunning) return null;
 
   return (
-    <div className="floating-timer">
+    <div className="floating-timer" onClick={onClick}>
       ⏱️
     </div>
   );
 }
+
 

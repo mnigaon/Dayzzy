@@ -2,7 +2,6 @@
 import { useAuth } from "../../firebase/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import "./Dashboard.css";
@@ -12,11 +11,13 @@ import WorkspaceList from "./WorkspaceList";
 import Tasks from "./Tasks";
 import TimerPage from "../timer/TimerPage"; // Timer 탭
 import FloatingTimer from "../timer/FloatingTimer";
-import { TimerProvider, useTimer } from "../../context/TimerContext";
+import { TimerProvider } from "../../context/TimerContext";
+import Settings from "../settings/Settings";
+
+
 
 export default function Dashboard() {
   const { currentUser } = useAuth();
-  const navigate = useNavigate();
 
   const [activeTab, setActiveTab] = useState("home"); // home, tasks, workspace, timer
   const [activeWorkspace, setActiveWorkspace] = useState(null); // 선택된 워크스페이스
@@ -24,7 +25,6 @@ export default function Dashboard() {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      navigate("/"); // 로그아웃 시 메인페이지로 이동
     } catch (err) {
       console.error("Logout failed:", err);
     }
@@ -33,20 +33,40 @@ export default function Dashboard() {
   const renderContent = () => {
     if (activeTab === "workspace") {
       if (activeWorkspace) {
-        return <Tasks workspaceId={activeWorkspace.id} />;
+        console.log(activeWorkspace);
+
+        return (
+          <Tasks
+            workspaceId={activeWorkspace.id}
+            workspaceTitle={activeWorkspace.name}
+          />
+        );
       } else {
-        return <WorkspaceList onSelectWorkspace={(ws) => setActiveWorkspace(ws)} />;
+        return (
+          <WorkspaceList
+            onSelectWorkspace={(ws) => setActiveWorkspace(ws)}
+          />
+        );
       }
     } else if (activeTab === "tasks") {
-      return <Tasks />;
+      return <Tasks />; // Individual 자동
     } else if (activeTab === "timer") {
-      return <TimerPage />; // Dashboard 내부 Timer 탭
+      return <TimerPage />;     
+    } else if (activeTab === "settings") {
+      return <Settings />;
     } else if (activeTab === "home") {
-      return <DashboardHome />;
-    } else {
+      return (
+        <DashboardHome
+          setActiveTab={setActiveTab}
+          setActiveWorkspace={setActiveWorkspace}
+        />
+      );
+    } 
+    else {
       return null;
     }
   };
+  
 
   return (
     <TimerProvider>
@@ -113,5 +133,3 @@ export default function Dashboard() {
     </TimerProvider>
   );
 }
-
-

@@ -1,0 +1,49 @@
+/* =========================
+   🌙 GLOBAL DARK MODE
+========================= */
+
+body.dark {
+    background: #121212;
+    color: #eee;
+  }
+  
+  /* 공통 카드/컨테이너 */
+  body.dark .settings-card,
+  body.dark .tasks-list li,
+  body.dark .modal-content,
+  body.dark .sidebar,
+  body.dark .main-content {
+    background: #1e1e1e !important;
+    color: #eee;
+    box-shadow: none;
+  }
+  
+  /* input / textarea */
+  body.dark input,
+  body.dark textarea,
+  body.dark select {
+    background: #2a2a2a;
+    color: #fff;
+    border: 1px solid #444;
+  }
+  
+  /* 버튼 */
+  body.dark button {
+    filter: brightness(0.95);
+  }
+  
+  /* 링크 */
+  body.dark a {
+    color: #7aa2ff;
+  }
+  
+  /* sidebar */
+  body.dark .sidebar {
+    background: #171717;
+  }
+  
+  /* hover 효과 */
+  body.dark .tasks-list li:hover {
+    background: #262626;
+  }
+  

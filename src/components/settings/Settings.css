@@ -1,0 +1,89 @@
+.settings {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 28px;
+    display: grid;
+    gap: 24px;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  /* 페이지 제목 */
+  .settings-title {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+  
+  /* 공통 카드 */
+  .settings-card {
+    background: #fff;
+    padding: 22px;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+  
+  /* 카드 타이틀 */
+  .settings-card h3 {
+    margin-bottom: 16px;
+    font-weight: 700;
+  }
+  
+  /* input 공통 */
+  .settings-card input {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+    font-size: 14px;
+  }
+  
+  .settings-card input:focus {
+    outline: none;
+    border-color: #648CFF;
+  }
+  
+  /* 버튼 */
+  .settings-card button {
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  .btn-primary {
+    background: #648CFF;
+    color: white;
+  }
+  
+  .btn-danger {
+    background: #ff4d4f;
+    color: white;
+  }
+  
+  .btn-ghost {
+    background: #eee;
+  }
+
+  /* =========================
+   🌙 Dark mode
+========================= */
+
+body.dark {
+    background: #121212;
+    color: #eee;
+  }
+  
+  body.dark .settings-card {
+    background: #1e1e1e;
+    box-shadow: none;
+  }
+  
+  body.dark input,
+  body.dark select {
+    background: #2a2a2a;
+    color: #fff;
+    border: 1px solid #444;
+  }
+  

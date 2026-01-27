@@ -1,4 +1,6 @@
 // src/App.jsx
+import { useEffect, useState } from "react";
+
 import { Routes, Route, useLocation } from "react-router-dom";
 import Header from "./components/Headerr";
 import Footer from "./components/Footer";
@@ -17,6 +19,8 @@ import PrivateRoute from "./components/dashboard/PrivateRoute";
 
 import { TimerProvider } from "./context/TimerContext";
 import TimerPage from "./components/timer/TimerPage";
+import "./styles/theme.css";
+
 
 function Home() {
   return (
@@ -36,6 +40,27 @@ function App() {
   const location = useLocation();
   const hideHeaderRoutes = ["/auth", "/auth/register", "/dashboard", "/timer"];
   const shouldShowHeader = !hideHeaderRoutes.includes(location.pathname);
+
+  /* =========================
+     🌙 전역 다크모드 관리자
+  ========================= */
+  useEffect(() => {
+    const applyDark = () => {
+      const dark =
+        localStorage.getItem("tasky_darkMode") === "true";
+
+      document.body.classList.toggle("dark", dark);
+    };
+
+    applyDark(); // 최초 1회
+
+    // ⭐ PreferencesCard에서 이벤트 받기
+    window.addEventListener("darkmode-change", applyDark);
+
+    return () =>
+      window.removeEventListener("darkmode-change", applyDark);
+  }, []);
+  
 
   return (
     <>

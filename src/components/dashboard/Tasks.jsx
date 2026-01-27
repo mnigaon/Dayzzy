@@ -4,7 +4,6 @@ import { db, storage } from "../../firebase/firebase";
 import {
   collection,
   addDoc,
-  updateDoc,
   deleteDoc,
   doc,
   onSnapshot,
@@ -12,124 +11,134 @@ import {
   orderBy,
   serverTimestamp,
   Timestamp,
+  getDocs, // ⭐ 추가
 } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useAuth } from "../../firebase/AuthContext";
+import TaskModal from "./TaskModal";
 import "./Tasks.css";
+import { formatDate } from "../../utils/dateFormat";
+
 
 export default function Tasks({ workspaceId = null }) {
   const { currentUser } = useAuth();
 
   const [tasks, setTasks] = useState([]);
+  const [selectedTask, setSelectedTask] = useState(null);
+
+  const [workspaceMap, setWorkspaceMap] = useState({}); // ⭐⭐⭐ 핵심
+
   const [newTask, setNewTask] = useState("");
   const [newDescription, setNewDescription] = useState("");
   const [newDueDate, setNewDueDate] = useState("");
   const [file, setFile] = useState(null);
 
-  // 실시간 Task 불러오기
+  /* =========================
+     ⭐ workspace 이름 한번만 로딩
+  ========================= */
+  useEffect(() => {
+    const load = async () => {
+      const snap = await getDocs(collection(db, "workspaces"));
+
+      const map = {};
+      snap.forEach((d) => {
+        map[d.id] = d.data().name; // ⭐ name 사용
+      });
+
+      setWorkspaceMap(map);
+    };
+
+    load();
+  }, []);
+
+
+
+  /* =========================
+     실시간 tasks
+  ========================= */
   useEffect(() => {
     if (!currentUser) return;
 
-    const q = query(collection(db, "tasks"), orderBy("dueDate", "asc"));
+    const q = query(collection(db, "tasks"), orderBy("order", "asc"));
 
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const tasksData = snapshot.docs
-        .map(doc => {
-          const data = doc.data();
-          return {
-            id: doc.id,
-            title: data.title || "No title",
-            description: data.description || "",
-            status: data.status || "pending",
-            userId: data.userId,
-            workspaceId: data.workspaceId || null,
-            attachmentUrl: data.attachmentUrl || "",
-            attachmentName: data.attachmentName || "",
-            dueDate: data.dueDate?.toDate ? data.dueDate.toDate() : null,
-          };
-        })
-        .filter(task => task.userId === currentUser.uid)
-        .filter(task => (workspaceId ? task.workspaceId === workspaceId : true)); // workspaceId 필터링
+    return onSnapshot(q, (snap) => {
+      const data = snap.docs
+        .map((d) => ({ id: d.id, ...d.data() }))
+        .filter((t) => t.userId === currentUser.uid)
+        .filter((t) => (workspaceId ? t.workspaceId === workspaceId : true));
 
-      setTasks(tasksData);
+      setTasks(data);
     });
-
-    return () => unsubscribe();
   }, [currentUser, workspaceId]);
 
-  // Task 추가
+  /* =========================
+     추가
+  ========================= */
   const handleAddTask = async () => {
-    if (!newTask || !newDueDate || !currentUser) return;
-
+    if (!newTask || !newDueDate) return;
+  
     let fileUrl = "";
     let fileName = "";
-
+  
+    /* ⭐ 파일 업로드 복구 */
     if (file) {
-      const storageRef = ref(storage, `tasks/${currentUser.uid}/${file.name}`);
-      await uploadBytes(storageRef, file);
-      fileUrl = await getDownloadURL(storageRef);
+      const r = ref(
+        storage,
+        `tasks/${currentUser.uid}/${Date.now()}_${file.name}`
+      );
+  
+      await uploadBytes(r, file);
+  
+      fileUrl = await getDownloadURL(r);
       fileName = file.name;
     }
-
+  
     await addDoc(collection(db, "tasks"), {
       title: newTask,
       description: newDescription,
       dueDate: Timestamp.fromDate(new Date(newDueDate)),
       createdAt: serverTimestamp(),
       status: "pending",
+      order: Date.now(),
       userId: currentUser.uid,
-      workspaceId: workspaceId, // workspaceId 저장
+      workspaceId,
+  
+      /* ⭐⭐⭐ 다시 추가 */
       attachmentUrl: fileUrl,
       attachmentName: fileName,
     });
-
+  
     setNewTask("");
     setNewDescription("");
     setNewDueDate("");
     setFile(null);
   };
+  
 
-  // 삭제
-  const handleDelete = async (id) => {
+  const handleDelete = async (e, id) => {
+    e.stopPropagation();
     await deleteDoc(doc(db, "tasks", id));
   };
 
-  // 상태 토글
-  const handleToggleStatus = async (task) => {
-    await updateDoc(doc(db, "tasks", task.id), {
-      status: task.status === "pending" ? "completed" : "pending",
-    });
-  };
-
-  // 수정
-  const handleEdit = async (task) => {
-    const newTitle = prompt("New title", task.title);
-    const newDue = prompt(
-      "New due date (YYYY-MM-DD)",
-      task.dueDate ? task.dueDate.toISOString().slice(0, 10) : ""
-    );
-    if (!newTitle || !newDue) return;
-
-    await updateDoc(doc(db, "tasks", task.id), {
-      title: newTitle,
-      dueDate: Timestamp.fromDate(new Date(newDue)),
-    });
-  };
-
+  /* =========================
+     UI
+  ========================= */
   return (
     <div className="tasks">
-      <h2>{workspaceId ? "Workspace Tasks" : "All Tasks"}</h2>
-
-      {/* Task 입력폼 */}
+      {/* ⭐ 워크스페이스 헤드라인 */}
+      {workspaceId && workspaceMap[workspaceId] && (
+        <h2 className="workspace-page-header">
+          📁 {workspaceMap[workspaceId]}
+        </h2>
+      )}
+      <h3>Add New Tasks</h3>
       <div className="tasks-input">
         <input
-          type="text"
           placeholder="Task title"
           value={newTask}
           onChange={(e) => setNewTask(e.target.value)}
         />
         <input
-          type="text"
           placeholder="Description"
           value={newDescription}
           onChange={(e) => setNewDescription(e.target.value)}
@@ -139,39 +148,63 @@ export default function Tasks({ workspaceId = null }) {
           value={newDueDate}
           onChange={(e) => setNewDueDate(e.target.value)}
         />
-        <input type="file" onChange={(e) => setFile(e.target.files[0])} />
+        <input
+          type="file"
+          onChange={(e) => setFile(e.target.files[0])}
+        />
         <button onClick={handleAddTask}>Add</button>
       </div>
 
-      {/* Task 목록 */}
+      <h3>All Tasks</h3>
       <ul className="tasks-list">
-        {tasks.map((task) => (
-          <li
-            key={task.id}
-            className={task.status === "completed" ? "completed" : ""}
-          >
-            <span onClick={() => handleToggleStatus(task)}>
-              <strong>{task.title}</strong>
-              {task.dueDate && (
-                <small>
-                  &nbsp;•&nbsp;Due:{" "}
-                  {new Date(task.dueDate).toLocaleDateString()}
-                </small>
-              )}
-              <p>{task.description || "No description"}</p>
-              {task.attachmentUrl && (
-                <a href={task.attachmentUrl} target="_blank" rel="noreferrer">
-                  📎 {task.attachmentName || "Attachment"}
-                </a>
-              )}
-            </span>
-            <div className="task-buttons">
-              <button onClick={() => handleEdit(task)}>Edit</button>
-              <button onClick={() => handleDelete(task.id)}>Delete</button>
-            </div>
-          </li>
-        ))}
+        {tasks.map((task) => {
+          const header = task.workspaceId
+            ? workspaceMap[task.workspaceId] || "Workspace"
+            : "Individual";
+
+          return (
+            <li key={task.id} onClick={() => setSelectedTask(task)}>
+              <span>
+                <div className="task-card-header">{header}</div>
+
+                <strong>{task.title}</strong>
+
+                {formatDate(task.dueDate) && (
+                  <small>Due: {formatDate(task.dueDate)}</small>
+                )}
+
+                <p>{task.description}</p>
+                {task.attachmentUrl && (
+                  <a
+                    href={task.attachmentUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    📎 {task.attachmentName}
+                  </a>
+                )}
+              </span>
+
+              <div className="task-buttons">
+                <button onClick={(e) => handleDelete(e, task.id)}>
+                  Delete
+                </button>
+              </div>
+            </li>
+          );
+        })}
       </ul>
+
+      {selectedTask && (
+        <TaskModal
+          task={selectedTask}
+          currentUser={currentUser}
+          workspaceMap={workspaceMap}
+          onClose={() => setSelectedTask(null)}
+        />
+      )}
     </div>
   );
 }
+
