@@ -14,6 +14,9 @@ import FloatingTimer from "../timer/FloatingTimer";
 import { TimerProvider } from "../../context/TimerContext";
 import Settings from "../settings/Settings";
 
+import KanbanPage from "../kanban/KanbanPage"; // ⭐ 칸반
+
+
 
 
 export default function Dashboard() {
@@ -50,6 +53,8 @@ export default function Dashboard() {
       }
     } else if (activeTab === "tasks") {
       return <Tasks />; // Individual 자동
+    } else if (activeTab === "kanban") {
+      return <KanbanPage />; // ⭐ 칸반 연결
     } else if (activeTab === "timer") {
       return <TimerPage />;     
     } else if (activeTab === "settings") {
@@ -91,6 +96,15 @@ export default function Dashboard() {
               }}
             >
               Tasks
+            </li>
+            <li
+              className={activeTab === "kanban" ? "active" : ""}
+              onClick={() => {
+                setActiveTab("kanban");
+                setActiveWorkspace(null);
+              }}
+            >
+              Kanban
             </li>
             <li
               className={activeTab === "workspace" ? "active" : ""}

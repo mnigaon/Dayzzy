@@ -1,0 +1,69 @@
+.kanban-column {
+    width: 300px;
+    min-width: 300px;
+  
+    display: flex;
+    flex-direction: column;
+  
+    background: #f7f8fa;
+    border-radius: 14px;
+    padding: 14px;
+  }
+  
+  /* header */
+  .kanban-column-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  
+  .count {
+    font-size: 12px;
+    background: #e3e6ef;
+    padding: 4px 8px;
+    border-radius: 20px;
+  }
+  
+  /* body */
+  .kanban-column-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 100px;
+  }
+  
+  /* =========================
+     🌙 Dark mode
+  ========================= */
+  
+  .dark .kanban-column {
+    background: #1e1f24;
+    border: 1px solid #2a2b31;
+  }
+  
+  .dark .kanban-column-header h3 {
+    color: #fff;
+  }
+  
+  .dark .count {
+    background: #2a2b31;
+    color: #bbb;
+  }
+  
+  /* 드롭 가능 상태 */
+.kanban-column.drop-over {
+  background: #e8f0ff;
+  transform: scale(1.02);
+  transition: 0.12s ease;
+}
+
+.kanban-column-body:empty::after {
+  content: "Drop here ✨";
+  opacity: 0.4;
+  font-size: 13px;
+  text-align: center;
+  padding: 20px 0;
+}

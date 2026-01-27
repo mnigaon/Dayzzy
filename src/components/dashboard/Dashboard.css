@@ -26,7 +26,7 @@
 }
 
 .sidebar .logo:hover {
-  color: #648CFF;
+  color: #8B97AD;
 }
 
 /* Sidebar menu */
@@ -46,24 +46,24 @@
 }
 
 .sidebar ul li:hover {
-  background-color: #e0f7ea;
-  color: #648CFF;
+  background-color: #E6EBF5;
+  color: #5B6B8C;
 }
 
 .sidebar ul li.active {
-  background-color: #648CFF;
+  background-color: #8B97AD;
   color: white;
 }
 
 .sidebar ul li.logout-btn {
   margin-top: auto;
-  background-color: #ff4d4d;
+  background-color: #000000;
   text-align: center;
   color: white;
 }
 
 .sidebar ul li.logout-btn:hover {
-  background-color: #e60000;
+  background-color: #373333;
 }
 
 /* Main content */
@@ -71,7 +71,7 @@
   flex: 1;
   padding: 32px;
   overflow-y: auto;
-  background-color: #f9f9f9; /* 섹션 배경 그대로 */
+
 }
 
 /* Cards (Today's Tasks, Ongoing Projects, Recent Activity) */
@@ -84,9 +84,9 @@
 .card {
   flex: 1;
   padding: 28px;
-  background: white;
+
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+
   text-align: center;
   font-weight: 600;
   font-size: 18px;

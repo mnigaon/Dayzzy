@@ -26,13 +26,14 @@
     cursor: pointer;
     border-radius: 6px;
     border: none;
-    background-color: #648CFF;
-    color: white;
+    background-color: #E6EBF5;
+    color: black;
     transition: background 0.2s;
   }
   
   .workspace-add button:hover {
-    background-color: #5172e3; /* 살짝 어둡게 */
+    background-color: #8B97AD;
+    color: white;
   }
   
   /* 워크스페이스 카드 목록 */
@@ -46,7 +47,7 @@
   /* 개별 카드 */
   .workspace-card {
     position: relative;
-    background-color: #648CFF; /* 기본 카드 색상 */
+    background-color: #8B97AD;
     color: white;
     padding: 1rem;
     flex: 0 0 250px;
@@ -61,7 +62,7 @@
   
   /* 카드 호버 */
   .workspace-card:hover {
-    background-color: white;
+    background-color: #E6EBF5;
     color: black;
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
@@ -69,14 +70,14 @@
   
   /* 아이콘 */
   .workspace-card .icon {
-    font-size: 32px;
-    margin-bottom: 10px;
+    font-size: 30px;
+    margin-bottom: 19px;
   }
   
   /* 워크스페이스 이름 */
   .workspace-card .name {
     font-weight: bold;
-    font-size: 22px;
+    font-size: 19px;
     word-break: break-word;
   }
   

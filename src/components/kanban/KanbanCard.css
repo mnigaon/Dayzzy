@@ -1,0 +1,128 @@
+/* =========================
+   기본 카드
+========================= */
+.kanban-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 12px;
+  cursor: grab;
+
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+
+  /* ⭐ transform만 트랜지션 (부드러운 이동) */
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.12s ease;
+}
+
+/* =========================
+   hover (살짝 떠오름)
+========================= */
+.kanban-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+}
+
+/* =========================
+   클릭 순간 (눌림)
+========================= */
+.kanban-card:active {
+  cursor: grabbing;
+  transform: scale(0.98);
+}
+
+/* =========================
+   ⭐⭐⭐ 드래그 중 핵심 효과 강화
+========================= */
+.kanban-card.dragging {
+  opacity: 0.9;
+
+  /* ⭐ 더 "집어 든" 느낌 */
+  transform: scale(1.08) rotate(2.5deg);
+
+  /* ⭐ 그림자 강화 */
+  box-shadow: 0 18px 32px rgba(0,0,0,0.22);
+
+  cursor: grabbing;
+
+  /* ⭐ 드래그 중엔 transition 제거 (버벅임 방지) */
+  transition: none;
+
+  z-index: 20;
+}
+
+/* =========================
+   ⭐ 드롭 후 복귀 살짝 튕김 (자연스러움)
+========================= */
+.kanban-card:not(.dragging) {
+  animation: cardDrop 0.18s ease;
+}
+
+@keyframes cardDrop {
+  0% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* =========================
+   title
+========================= */
+.card-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #222;
+}
+
+/* description */
+.card-desc {
+  font-size: 13px;
+  color: #555;
+  margin: 6px 0 8px;
+}
+
+/* footer */
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #777;
+}
+
+/* =========================
+   🌙 Dark mode
+========================= */
+.dark .kanban-card {
+  background: #25262c;
+  border: 1px solid #2f3036;
+  box-shadow: none;
+}
+
+.dark .kanban-card:hover {
+  background: #2d2e34;
+}
+
+.dark .card-title {
+  color: #fff;
+}
+
+.dark .card-desc {
+  color: #bdbdbd;
+}
+
+.dark .card-footer {
+  color: #9aa0a6;
+}
+
+/* =========================
+   input
+========================= */
+.card-input {
+  width: 100%;
+  font-size: 14px;
+  font-weight: 700;
+  border: none;
+  background: transparent;
+  outline: none;
+}
+

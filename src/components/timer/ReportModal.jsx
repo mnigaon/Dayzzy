@@ -23,6 +23,9 @@ export default function ReportModal({ onClose }) {
   const { totalHours, daysAccessed, streak } = getSummaryStats();
   const allData = getAllFocusData();
 
+  const isDark = document.body.classList.contains("dark");
+  const barColor = isDark ? "#F0B6B6" : "#800000";
+
   // =================
   // Focus Hours 차트
   // =================
@@ -112,6 +115,8 @@ export default function ReportModal({ onClose }) {
           </button>
         </div>
 
+
+      {/*
         <div className="report-tabs">
           <button
             className={activeTab === "summary" ? "active" : ""}
@@ -126,6 +131,9 @@ export default function ReportModal({ onClose }) {
             Ranking
           </button>
         </div>
+      */}
+
+
 
         <div className="report-content">
           {activeTab === "summary" && (
@@ -138,7 +146,7 @@ export default function ReportModal({ onClose }) {
               </div>
 
               <h4 style={{ marginTop: "1.5rem" }}>📈 Focus Hours</h4>
-              <div style={{ display: "flex", gap: "0.5rem", marginBottom: "0.5rem" }}>
+              <div className="report-filter" style={{ display: "flex", gap: "0.5rem", marginBottom: "0.5rem" }}>
                 <button className={filter === "week" ? "active" : ""} onClick={() => setFilter("week")}>Week</button>
                 <button className={filter === "month" ? "active" : ""} onClick={() => setFilter("month")}>Month</button>
                 <button className={filter === "year" ? "active" : ""} onClick={() => setFilter("year")}>Year</button>
@@ -147,17 +155,24 @@ export default function ReportModal({ onClose }) {
               <div style={{ width: "100%", height: 200 }}>
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={chartData}>
-                    <CartesianGrid strokeDasharray="3 3" />
+                    <CartesianGrid stroke="#eee" />
                     <XAxis dataKey="date" />
                     <YAxis />
                     <Tooltip />
-                    <Bar dataKey="hours" fill="#648cff" />
+                    <Bar
+                      dataKey="hours"
+                      fill={barColor}
+                      radius={[6, 6, 0, 0]}
+                    />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
             </>
           )}
 
+
+
+          {/*
           {activeTab === "ranking" && (
             <div className="ranking-section">
               <h4>🏆 Total Focus Time</h4>
@@ -171,6 +186,9 @@ export default function ReportModal({ onClose }) {
               </ul>
             </div>
           )}
+          */}
+
+
         </div>
       </div>
     </div>

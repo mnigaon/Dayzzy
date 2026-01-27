@@ -62,8 +62,8 @@
 
 /* Add 버튼 */
 .tasks-input button {
-  background: #648cff;
-  color: white;
+  background: #E6EBF5;
+  color: black;
 
   padding: 10px 18px;
   border-radius: 10px;
@@ -76,7 +76,8 @@
 }
 
 .tasks-input button:hover {
-  background: #4f76e8;
+  background: #8B97AD;
+  color: white;
   transform: translateY(-2px);
 }
 
@@ -170,12 +171,9 @@
 .tasks-list li small {
   font-size: 12px;
   width: fit-content;
-
-  padding: 4px 8px;
   border-radius: 8px;
-
-  background: #eef2ff;
-  color: #4f76e8;
+  color: #CD4275;
+  font-weight: bold;
 }
 
 /* 첨부파일 pill */
@@ -201,14 +199,18 @@
 
 .task-buttons {
   display: flex;
-  align-items: center;
+
+  justify-content: flex-end;  /* ⭐ 오른쪽 */
+  align-items: flex-end;      /* ⭐ 아래 */
+
+  height: 100%;               /* ⭐ li 높이 기준으로 하단 */
 }
 
 .task-buttons button {
   background: white;
-  border: 1px solid #ffd6d6;
+  border: 1px solid black;
 
-  color: #ff5f5f;
+  color: black;
 
   padding: 6px 12px;
   border-radius: 8px;
@@ -221,7 +223,9 @@
 }
 
 .task-buttons button:hover {
-  background: #ffecec;
+  background: red;
+  color: white;
+  border: none;
 }
 
 /* =========================
@@ -355,6 +359,53 @@
 }
 
 
+.task-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-pill {
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-weight: 600;
+  margin-left: 20px;
+}
+
+/* colors */
+.status-pill.pending {
+  background: #e5e7eb;
+  color: #444;
+}
+
+.status-pill.progress {
+  background: #ffe08a;
+  color: #7a5d00;
+}
+
+.status-pill.completed {
+  background: #b7f7c5;
+  color: #0f6b2a;
+}
+
+/* dark */
+.dark .status-pill.pending {
+  background: #2a2b31;
+  color: #aaa;
+}
+
+.dark .status-pill.progress {
+  background: #5b4b1f;
+  color: #ffd86b;
+}
+
+.dark .status-pill.completed {
+  background: #183c28;
+  color: #7ef2a0;
+}
+
+
 
 
 /* =========================
@@ -373,4 +424,243 @@
   .task-buttons {
     justify-content: flex-end;
   }
+}
+
+
+/* =================================================
+   🔎 Filter Bar
+================================================= */
+
+.tasks-filter-bar {
+  display: inline-flex;   /* ⭐ 핵심: 내용만큼만 */
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 20px;
+
+  background: #f6f7fb;
+  border-radius: 10px;
+
+  max-width: 100%;
+}
+
+/* 검색 input */
+.tasks-filter-bar input {
+  flex: 1;
+  min-width: 180px;
+
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #d6d8e0;
+
+  font-size: 14px;
+}
+
+/* select 공통 */
+.tasks-filter-bar select {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #d6d8e0;
+  background: white;
+
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.tasks-filter-bar select:hover {
+  border-color: #648cff;
+}
+
+/* 포커스 */
+.tasks-filter-bar input:focus,
+.tasks-filter-bar select:focus {
+  outline: none;
+  border-color: #648cff;
+  box-shadow: 0 0 0 2px rgba(100, 140, 255, 0.15);
+}
+
+/* =================================================
+   🌙 Dark Mode – Filter Bar
+================================================= */
+
+.dark .tasks-filter-bar {
+  background: #1e1f24;
+  border: 1px solid #2a2b31;
+}
+
+/* input */
+.dark .tasks-filter-bar input {
+  background: #2a2b31;
+  border: 1px solid #3a3b42;
+  color: #fff;
+}
+
+/* placeholder */
+.dark .tasks-filter-bar input::placeholder {
+  color: #9aa0a6;
+}
+
+/* select */
+.dark .tasks-filter-bar select {
+  background: #2a2b31;
+  border: 1px solid #3a3b42;
+  color: #fff;
+}
+
+.dark .tasks-filter-bar select:hover {
+  border-color: #648cff;
+}
+
+/* =================================================
+   📱 Responsive (모바일)
+================================================= */
+
+@media (max-width: 640px) {
+  .tasks-filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .tasks-filter-bar input,
+  .tasks-filter-bar select {
+    width: 100%;
+  }
+}
+
+
+
+/* =========================
+   🔥 Tasks Input - Form UI Upgrade
+========================= */
+
+/* 모든 input 공통 */
+.tasks-input input {
+  flex: 1 1 180px;
+
+  padding: 10px 12px;
+
+  border-radius: 10px;
+  border: 1px solid #e4e6eb;
+
+  font-size: 14px;
+  background: #fff;
+
+  transition: all 0.15s;
+}
+
+/* 포커스 */
+.tasks-input input:focus {
+  outline: none;
+  border-color: #8B97AD;
+  box-shadow: 0 0 0 2px rgba(139, 151, 173, 0.15);
+}
+
+
+/* 날짜 input 폭 살짝 줄이기 */
+.tasks-input input[type="date"] {
+  flex: 0 0 150px;
+}
+
+
+/* 파일 input 정렬 */
+.tasks-input input[type="file"] {
+  flex: 0 0 auto;
+  font-size: 13px;
+}
+
+
+/* 파일 버튼 커스텀 */
+.tasks-input input[type="file"]::file-selector-button {
+  padding: 6px 12px;
+
+  background: transparent;
+  color: #8B97AD;
+
+  border: 1px solid #8B97AD;
+  border-radius: 8px;
+
+  font-weight: 600;
+  cursor: pointer;
+
+  margin-right: 8px;
+  transition: all 0.15s;
+}
+
+.tasks-input input[type="file"]::file-selector-button:hover {
+  background: rgba(139, 151, 173, 0.12);
+}
+
+
+/* Add 버튼 (기존보다 살짝 업그레이드) */
+.tasks-input button {
+  margin-left: auto;   /* ⭐ 핵심 (오른쪽 끝 이동) */
+
+  height: 35px;
+  padding: 0 14px;
+
+  border-radius: 8px;
+  background: #8B97AD;
+  color: white;
+
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 20px;
+}
+
+
+
+.tasks-input button:hover {
+  transform: translateY(-2px);
+  background: #6f7c94;
+}
+
+.task-card-header {
+  margin-bottom: 5px;
+  font-size: 13px;
+  font-weight: 600;
+
+  background: #a79d9d;
+  color: #ffffff;
+
+  padding: 3px 8px;
+  border-radius: 999px;
+
+  width: fit-content;
+}
+
+.dark .task-card-header {
+  color: white;
+  background: transparent;
+  border: 1px solid #e4e6eb;
+}
+
+
+
+
+/* =========================
+   🌙 Dark mode
+========================= */
+
+.dark .tasks-input input {
+  background: #2a2b31;
+  border: 1px solid #3a3b42;
+  color: white;
+}
+
+.dark .tasks-input input::placeholder {
+  color: #9aa0a6;
+}
+
+.dark .tasks-input input[type="file"]::file-selector-button {
+  color: #ccc;
+  border-color: #3a3b42;
+}
+
+.dark .tasks-input button {
+  background: #34353d;
+}
+
+.dark .tasks-input button:hover {
+  background: #3f4048;
 }

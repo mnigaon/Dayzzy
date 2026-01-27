@@ -40,7 +40,7 @@
   
   .settings-card input:focus {
     outline: none;
-    border-color: #648CFF;
+    border-color: #b4c24e;
   }
   
   /* 버튼 */
@@ -53,12 +53,12 @@
   }
   
   .btn-primary {
-    background: #648CFF;
+    background: #000000;
     color: white;
   }
   
   .btn-danger {
-    background: #ff4d4f;
+    background: #ae4343;
     color: white;
   }
   

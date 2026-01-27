@@ -1,0 +1,56 @@
+.kanban-board {
+    flex: 1;
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+  }
+  
+  /* 스크롤바 깔끔하게 */
+  .kanban-board::-webkit-scrollbar {
+    height: 8px;
+  }
+  
+  .kanban-board::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 6px;
+  }
+  
+  /* 🌙 Dark */
+  .dark .kanban-board::-webkit-scrollbar-thumb {
+    background: #444;
+  }
+  
+  .add-column-btn {
+    min-width: 140px;
+    height: 44px;
+  
+    padding: 0 14px;
+  
+    border-radius: 10px;
+    border: 1.5px dashed #d0d7de;
+  
+    background: #fafbfc;
+    color: #555;
+  
+    font-size: 14px;
+    font-weight: 600;
+  
+    cursor: pointer;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    transition: all 0.12s ease;
+  }
+  
+  .add-column-btn:hover {
+    background: #f1f3f5;
+    border-color: #9ca3af;
+  }
+  
+  .add-column-btn:active {
+    transform: scale(0.97);
+  }
+  

@@ -1,0 +1,19 @@
+.kanban-page {
+    height: 100%;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .kanban-header h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #222;
+  }
+  
+  /* 🌙 Dark mode */
+  .dark .kanban-header h2 {
+    color: #fff;
+  }
+  

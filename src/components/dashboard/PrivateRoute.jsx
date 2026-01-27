@@ -1,3 +1,4 @@
+// src/components/dasboard/PrivateRoute.jsx
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../../firebase/AuthContext";
 

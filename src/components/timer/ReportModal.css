@@ -78,11 +78,38 @@
   }
   
   .report-tabs button.active {
-    background: #648cff;
+    background: #800000;
     color: white;
-    border-color: #648cff;
+    border-color: #800000;
     font-weight: 600;
   }
+
+
+  /* 필터 버튼 기본 */
+.report-filter button {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+/* hover */
+.report-filter button:hover {
+  background: #f3f3f3;
+}
+
+/* 🔥 활성 버튼 (요청 색상) */
+.report-filter button.active {
+  background: #800000;
+  color: white;
+  border-color: #800000;
+}
+
+
+
+
   
   /* Content */
   .report-content h4 {
@@ -173,7 +200,7 @@
 }
 
 .dark .report-tabs button.active {
-  background: #648cff;
+  background: #800000;
   color: white;
 }
 
@@ -198,7 +225,7 @@
 }
 
 .dark .report-content button.active {
-  background: #648cff;
+  background: #800000;
   color: white;
 }
 

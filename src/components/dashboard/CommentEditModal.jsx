@@ -64,7 +64,7 @@ export default function CommentEditModal({
      삭제
   ========================= */
   const handleDelete = async () => {
-    if (!window.confirm("댓글 삭제?")) return;
+    if (!window.confirm("Would you like to delete this comment?")) return;
 
     await deleteDoc(doc(db, "tasks", taskId, "comments", comment.id));
     onClose();

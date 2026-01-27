@@ -1,5 +1,3 @@
-//src/components/dashboard/TaskModal.jsx
-// src/components/dashboard/TaskModal.jsx
 import { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { db, storage } from "../../firebase/firebase";
@@ -20,25 +18,35 @@ import "./TaskModal.css";
 import CommentEditModal from "./CommentEditModal";
 import { formatDate } from "../../utils/dateFormat";
 
+export default function TaskModal({
+  task,
+  onClose,
+  currentUser,
+  workspaceTitle, // Kanban에서 전달
+  workspaceMap,   // Tasks에서 전달
+}) {
+  /* ⭐⭐⭐ 헤더 최종 로직 */
+  const header =
+    workspaceTitle ||
+    (task.workspaceId ? workspaceMap?.[task.workspaceId] : null) ||
+    "Individual";
 
-export default function TaskModal({ task, onClose, currentUser, workspaceMap, }) {
-  const header = task.workspaceId
-  ? workspaceMap?.[task.workspaceId] || "Workspace"
-  : "Individual";
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [dueDate, setDueDate] = useState("");
   const [status, setStatus] = useState("pending");
 
-  /* ⭐⭐⭐ Task 첨부파일 상태 추가 */
   const [taskFile, setTaskFile] = useState(null);
 
+  /* 댓글 */
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [file, setFile] = useState(null);
   const [editingComment, setEditingComment] = useState(null);
 
-  /* ========================= */
+  /* =========================
+     task 초기 세팅
+  ========================= */
   useEffect(() => {
     if (!task) return;
 
@@ -73,7 +81,7 @@ export default function TaskModal({ task, onClose, currentUser, workspaceMap, })
   }, [task]);
 
   /* =========================
-     ⭐ Task 저장 (파일 교체 포함)
+     Task 저장 (첨부 교체 포함)
   ========================= */
   const handleSave = async () => {
     let fileUrl = task.attachmentUrl || "";
@@ -84,7 +92,6 @@ export default function TaskModal({ task, onClose, currentUser, workspaceMap, })
         storage,
         `tasks/${currentUser.uid}/${Date.now()}_${taskFile.name}`
       );
-
       await uploadBytes(r, taskFile);
       fileUrl = await getDownloadURL(r);
       fileName = taskFile.name;
@@ -103,7 +110,7 @@ export default function TaskModal({ task, onClose, currentUser, workspaceMap, })
   };
 
   const handleDeleteTask = async () => {
-    if (!window.confirm("삭제하면 복구 없음 😈")) return;
+    if (!window.confirm("Deleted files cannot be recovered 😈")) return;
     await deleteDoc(doc(db, "tasks", task.id));
     onClose();
   };
@@ -122,7 +129,6 @@ export default function TaskModal({ task, onClose, currentUser, workspaceMap, })
         storage,
         `comments/${currentUser.uid}/${Date.now()}_${file.name}`
       );
-
       await uploadBytes(r, file);
       fileUrl = await getDownloadURL(r);
       fileName = file.name;
@@ -147,103 +153,120 @@ export default function TaskModal({ task, onClose, currentUser, workspaceMap, })
   const formatTime = (d) => (d ? d.toLocaleString() : "");
   const avatar = currentUser?.email?.[0]?.toUpperCase() || "U";
 
+  const isWorkspace = !!task.workspaceId;
+  const icon = isWorkspace ? "📁" : "👤";
+
+
   if (!task) return null;
 
-  return (
-    <>
-      {ReactDOM.createPortal(
-        <div className="modal-overlay" onClick={onClose}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-          <button className="close-x" onClick={onClose}>✕</button>
-            <h2 className="modal-workspace-header">
-              📁 {header}
-            </h2>
+  return ReactDOM.createPortal(
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <button className="close-x" onClick={onClose}>✕</button>
 
-            {/* =========================
-               Task 영역
-            ========================= */}
-            <div className="task-section">
-              <input value={title} onChange={(e) => setTitle(e.target.value)} />
-              <textarea value={desc} onChange={(e) => setDesc(e.target.value)} />
-              <input
-                type="date"
-                value={dueDate}
-                onChange={(e) => setDueDate(e.target.value)}
-              />
+        {/* ✅ 헤더 */}
+        <h2 className="modal-workspace-header">
+          {icon} {header}
+        </h2>
 
-              {/* ⭐ 기존 파일 표시 */}
-              {task.attachmentUrl && (
-                <a href={task.attachmentUrl} target="_blank" rel="noreferrer">
-                  📎 {task.attachmentName}
-                </a>
-              )}
+        {/* ================= Task ================= */}
+        <div className="task-section">
+          <input value={title} onChange={(e) => setTitle(e.target.value)} />
+          <textarea value={desc} onChange={(e) => setDesc(e.target.value)} />
 
-              {/* ⭐ 파일 교체 */}
-              <input
-                type="file"
-                onChange={(e) => setTaskFile(e.target.files[0])}
-              />
+          <input
+            type="date"
+            value={dueDate}
+            onChange={(e) => setDueDate(e.target.value)}
+          />
 
-              <div className="task-actions">
-                <button className="btn primary" onClick={handleSave}>Save</button>
-                <button className="btn danger" onClick={handleDeleteTask}>Delete</button>
-              </div>
-            </div>
+          <select
+            className="task-status-select"
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+          >
 
-            <hr />
+            <option value="pending">📝 To-do</option>
+            <option value="progress">⏳ In Progress</option>
+            <option value="completed">✅ Done</option>
+          </select>
 
-            {/* =========================
-               댓글
-            ========================= */}
-            <h3>Comments</h3>
+          {/* 기존 파일 */}
+          {task.attachmentUrl && (
+            <a href={task.attachmentUrl} target="_blank" rel="noreferrer">
+              📎 {task.attachmentName}
+            </a>
+          )}
 
-            <ul className="comments-list">
-              {comments.map((c) => (
-                <li key={c.id}>
-                  <div className="avatar">{avatar}</div>
+          {/* 파일 교체 */}
+          <input
+            type="file"
+            onChange={(e) => setTaskFile(e.target.files[0])}
+          />
 
-                  <div className="comment-body">
-                    <div className="comment-meta">
-                      {formatTime(c.createdAt)}
-                    </div>
-
-                    <p>{c.text}</p>
-
-                    {c.attachmentUrl && (
-                      <a href={c.attachmentUrl} target="_blank" rel="noreferrer">
-                        📎 {c.attachmentName}
-                      </a>
-                    )}
-
-                    {c.userId === currentUser.uid && (
-                      <div className="comment-actions">
-                        <button onClick={() => setEditingComment(c)}>✏️</button>
-                        <button onClick={() => deleteComment(c.id)}>🗑</button>
-                      </div>
-                    )}
-                  </div>
-                </li>
-              ))}
-            </ul>
-
-            <div className="add-comment">
-              <input
-                placeholder="Write a comment..."
-                value={newComment}
-                onChange={(e) => setNewComment(e.target.value)}
-              />
-
-              <input
-                type="file"
-                onChange={(e) => setFile(e.target.files[0])}
-              />
-
-              <button onClick={addComment}>Send</button>
-            </div>
+          <div className="task-actions">
+            <button className="btn primary" onClick={handleSave}>Save</button>
+            <button className="btn danger" onClick={handleDeleteTask}>Delete</button>
           </div>
-        </div>,
-        document.body
-      )}
+        </div>
+
+        <hr />
+
+        {/* ================= 댓글 ================= */}
+        <h3>Comments</h3>
+        <ul className="comments-list">
+          {comments.map((c) => (
+            <li key={c.id}>
+              <div className="avatar">{avatar}</div>
+
+              <div className="comment-body">
+                <div className="comment-meta">{formatTime(c.createdAt)}</div>
+
+                <p>{c.text}</p>
+
+                {c.attachmentUrl && (
+                  <a href={c.attachmentUrl} target="_blank" rel="noreferrer">
+                    📎 {c.attachmentName}
+                  </a>
+                )}
+
+                {c.userId === currentUser.uid && (
+                  <div className="comment-actions">
+                    <button
+                      className="icon-btn"
+                      onClick={() => setEditingComment(c)}
+                    >
+                      ✏️
+                    </button>
+
+                    <button
+                      className="icon-btn delete"
+                      onClick={() => deleteComment(c.id)}
+                    >
+                      🗑
+                    </button>
+                  </div>
+                )}
+              </div>
+            </li>
+          ))}
+        </ul>
+
+        <div className="add-comment">
+          <input
+            placeholder="Write a comment..."
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+          />
+
+          <input
+            type="file"
+            onChange={(e) => setFile(e.target.files[0])}
+          />
+
+          <button onClick={addComment}>Send</button>
+        </div>
+      </div>
 
       {editingComment && (
         <CommentEditModal
@@ -253,8 +276,7 @@ export default function TaskModal({ task, onClose, currentUser, workspaceMap, })
           onClose={() => setEditingComment(null)}
         />
       )}
-    </>
+    </div>,
+    document.body
   );
 }
-
-

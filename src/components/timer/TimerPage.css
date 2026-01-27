@@ -20,7 +20,7 @@
 .report-btn {
   margin-top: 10px;
   padding: 0.4rem 0.8rem;
-  background-color: #648cff;
+  background-color: #800000;
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -30,7 +30,9 @@
 }
 
 .report-btn:hover {
-  background-color: #5071d0;
+  background-color: transparent;
+  border: 1px solid #800000;
+  color: #800000;
 }
 
 /* Mode Buttons */
@@ -57,9 +59,9 @@
 }
 
 .timer-modes button.active {
-  background: #648cff;
+  background: #800000;
   color: white;
-  border-color: #648cff;
+  border-color: #800000;
   font-weight: 600;
 }
 
@@ -68,7 +70,7 @@
   width: 220px;
   height: 220px;
   border-radius: 50%;
-  background-color: #648cff;
+  background-color: #A36464;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -125,7 +127,7 @@
   font-size: 0.95rem;
   border-radius: 8px;
   border: none;
-  background-color: black;
+  background-color: #800000;
   color: white;
   font-weight: 600;
   cursor: pointer;
@@ -134,7 +136,7 @@
 
 .timer-controls button:hover {
   transform: scale(1.05);
-  background-color: #506fcc;
+  background-color: #800000;
 }
 
 /* Description */
@@ -160,7 +162,7 @@
 
 /* 헤더 */
 .dark .timer-header h2 {
-  color: #ffffff;
+  color: #C18282;
 }
 
 /* =========================
@@ -182,13 +184,13 @@
 ========================= */
 
 .dark .report-btn {
-  background: #648cff;
+  background: #D26E6E;
   border: none;
   color: white;
 }
 
 .dark .report-btn:hover {
-  background: #7a9cff;
+  background: #D26E6E;
 }
 
 /* =========================
@@ -201,7 +203,7 @@
 }
 
 .dark .timer-modes button.active {
-  background: #648cff;
+  background: #D26E6E;
   color: white;
 }
 
@@ -210,7 +212,7 @@
 ========================= */
 
 .dark .timer-circle {
-  background: #1e1f24;
+  background: #C18282;
   color: #ffffff;
   box-shadow: none;
 }
@@ -220,11 +222,11 @@
 ========================= */
 
 .dark .timer-label {
-  color: #ffffff;
+  color: #C18282;
 }
 
 .dark .pomodoro-sentence {
-  color: #bdbdbd;
+  color: #C18282;
 }
 
 /* =========================
@@ -236,6 +238,6 @@
 }
 
 .dark .timer-controls button:hover {
-  background: #648cff;
+  background: #D26E6E;
 }
 

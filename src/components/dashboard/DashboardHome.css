@@ -11,9 +11,6 @@
 
 /* 카드 공통 스타일 */
 .card {
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -44,8 +41,9 @@
 
 /* 워크스페이스 카드 */
 .workspace-card {
-  background-color: #648CFF; /* 카드 기본 배경 파란색 */
-  color: white; /* 기본 텍스트 흰색 */
+  background-color: transparent;
+  border: 1px solid #8B97AD;
+  color: black; 
   display: flex;
   align-items: center;
   justify-content: center;
@@ -67,8 +65,8 @@
 
 /* 호버 시 중앙 텍스트 */
 .workspace-card .hover-text {
-  color: #648cff;
-  font-size: 1rem;
+  color: black;
+  font-size: 1.3rem;
   font-weight: 600;
   text-align: center;
 }
@@ -80,6 +78,9 @@
 
 /* 집중 시간 카드 */
 .focus-card {
+  background-color: transparent;
+  border: 1px solid #8B97AD;
+  color: black; 
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -88,7 +89,9 @@
 }
 
 .focus-card:hover {
-  background-color: #e8f0ff;
+  background-color: transparent;
+  border: 1px solid #8B97AD;
+  color: black; 
 }
 
 /* 호버 텍스트 중앙 표시 */
@@ -98,8 +101,8 @@
   left: 50%;
   transform: translate(-50%, -50%);
   font-weight: 600;
-  color: #648cff;
-  font-size: 1rem;
+  color: black;
+  font-size: 1.3rem;
 }
 
 /* 진행 원형 */
@@ -124,7 +127,7 @@
 
 .circle {
   fill: none;
-  stroke: #648CFF;
+  stroke:  #8B97AD;
   stroke-width: 3.8;
   stroke-linecap: round;
   transition: stroke-dasharray 0.3s ease;
