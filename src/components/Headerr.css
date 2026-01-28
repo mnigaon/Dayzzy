@@ -1,67 +1,134 @@
+/* =========================
+   Header
+========================= */
+
 .header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 72px;
-    background: white;
-    z-index: 1000;
-    border-bottom: 1px solid #eee;
-  }
-  
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 68px;               /* 🔥 살짝 슬림 */
+
+  background: rgba(255,255,255,0.9); /* 🔥 살짝 투명 → 고급 */
+  backdrop-filter: blur(8px);        /* 🔥 SaaS 유리 느낌 */
+
+  z-index: 1000;
+
+  border-bottom: 1px solid #eceef3;
+}
+
+
+/* =========================
+   Inner
+========================= */
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+
+  height: 100%;
+  padding: 0 28px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+/* =========================
+   Logo
+========================= */
+
+.logo {
+  font-size: 22px;        /* 🔥 30 → 22 (세련) */
+  font-weight: 800;
+  letter-spacing: 1.5px;
+
+  text-decoration: none;
+  color: #111;
+
+  transition: opacity 0.15s ease;
+}
+
+.logo:hover {
+  opacity: 0.65;
+}
+
+
+/* =========================
+   Nav
+========================= */
+
+.nav {
+  display: flex;
+  gap: 38px;
+  align-items: center;
+}
+
+
+/* =========================
+   Links
+========================= */
+
+.nav-link {
+  text-decoration: none;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  color: #666;
+
+  transition: color 0.15s ease;
+}
+
+.nav-link:hover {
+  color: #111;
+}
+
+
+/* =========================
+   🔥 Primary Button
+========================= */
+
+.nav-button {
+  padding: 9px 18px;
+
+  background: #111;
+  color: white;
+
+  border-radius: 10px;
+  text-decoration: none;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  transition: all 0.18s ease;
+}
+
+.nav-button:hover {
+  transform: translateY(-2px);
+  opacity: 0.92;
+}
+
+.nav-button:active {
+  transform: translateY(0);
+}
+
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 768px) {
   .header-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 16px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    padding: 0 18px;
   }
-  
-  /* Logo */
-  .logo {
-    font-size: 30px;
-    font-weight: 800;
-    text-decoration: none;
-    color: black;
-    letter-spacing: 1px;
-  }
-  
-  /* Nav */
+
   .nav {
-    display: flex;
-    gap: 24px;
-    align-items: center;
+    gap: 12px;
   }
-  
-  .nav-link {
-    text-decoration: none;
-    color: #333;
-    font-size: 16px;
+
+  .logo {
+    font-size: 18px;
   }
-  
-  .nav-link:hover {
-    text-decoration: underline;
-  }
-  
-  .nav-button {
-    padding: 8px 16px;
-    background: black;
-    color: white;
-    text-decoration: none;
-    border-radius: 6px;
-    font-size: 14px;
-  }
-  
-  .nav-button:hover {
-    opacity: 0.85;
-  }
-  
-  /* Mobile */
-  @media (max-width: 768px) {
-    .header-inner {
-      flex-direction: column;
-      gap: 12px;
-    }
-  }
-  
+}

@@ -1,15 +1,48 @@
 import "./TestimonialWall.css";
 
 const testimonials = [
-  { title: "Amazing App", content: "Tasky helped me organize my life perfectly.", author: "Alice" },
-  { title: "Time Saver", content: "I can track all my projects effortlessly.", author: "Bob" },
-  { title: "Great for Teams", content: "Collaboration has never been easier.", author: "Charlie" },
-  { title: "User Friendly", content: "The interface is intuitive and clean.", author: "Diana" },
-  { title: "Highly Recommend", content: "My productivity increased dramatically.", author: "Ethan" },
-  { title: "Simple & Effective", content: "Just what I needed for my tasks.", author: "Fiona" },
-  { title: "Organized Life", content: "Everything in one place, amazing!", author: "George" },
-  { title: "Perfect Tool", content: "It fits perfectly for both work and personal tasks.", author: "Hannah" }
+  {
+    title: "Finally Organized",
+    content: "Tasky helps me keep all my daily tasks in one place without feeling overwhelmed.",
+    author: "Alice"
+  },
+  {
+    title: "Focus Booster",
+    content: "The timer keeps me focused and stops me from procrastinating.",
+    author: "Bob"
+  },
+  {
+    title: "Super Simple",
+    content: "Clean design, no clutter. Exactly what a personal task app should be.",
+    author: "Charlie"
+  },
+  {
+    title: "Great for Study",
+    content: "I use it every day to manage my assignments and study sessions.",
+    author: "Diana"
+  },
+  {
+    title: "My Daily Companion",
+    content: "I start every morning with Tasky. It keeps my day structured.",
+    author: "Ethan"
+  },
+  {
+    title: "Love the Kanban Board",
+    content: "Dragging tasks across columns feels satisfying and keeps me organized.",
+    author: "Fiona"
+  },
+  {
+    title: "Lightweight & Fast",
+    content: "No complicated setup. It just works instantly.",
+    author: "George"
+  },
+  {
+    title: "Perfect for Personal Use",
+    content: "Exactly what I needed to manage my life and personal goals.",
+    author: "Hannah"
+  }
 ];
+
 
 function TestimonialWall() {
   return (
@@ -23,9 +56,6 @@ function TestimonialWall() {
             <span className="author">- {t.author}</span>
           </div>
         ))}
-      </div>
-      <div className="see-more">
-        <button>See More</button>
       </div>
     </section>
   );

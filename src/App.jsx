@@ -39,7 +39,15 @@ function Home() {
 function App() {
   const location = useLocation();
   const hideHeaderRoutes = ["/auth", "/auth/register", "/dashboard", "/timer"];
-  const shouldShowHeader = !hideHeaderRoutes.includes(location.pathname);
+
+  const shouldShowHeader = !hideHeaderRoutes.some((route) =>
+    location.pathname.startsWith(route)
+  );
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
 
   /* =========================
      🌙 전역 다크모드 관리자

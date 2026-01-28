@@ -11,16 +11,26 @@ function HeroGradient() {
   return (
     <section className="hero-gradient">
       <div className="hero-gradient-content">
-        <span className="eyebrow-text">Join over 100,000 companies</span>
-        <h2 className="hero-gradient-title">Take Your Productivity to the Next Level</h2>
+
+        {/* 🔥 개인용 톤으로 변경 */}
+        <span className="eyebrow-text">
+          Simple. Personal. Focused.
+        </span>
+
+        <h2 className="hero-gradient-title">
+          Organize your day and get things done with Tasky
+        </h2>
+
         <div className="hero-gradient-buttons">
           <button className="hero-button" onClick={handleGetStarted}>
-            Get Started
+            Start Free
           </button>
         </div>
+
       </div>
     </section>
   );
 }
 
 export default HeroGradient;
+

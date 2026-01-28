@@ -5,25 +5,30 @@ import "./FAQ.css";
 const faqData = [
   {
     q: "What is Tasky?",
-    a: "Tasky is a simple and powerful task management tool designed to help individuals and teams stay organized, focused, and productive."
+    a: "Tasky is a simple personal task manager that helps you organize your day, stay focused, and get things done without distractions."
   },
   {
     q: "Is Tasky free to use?",
-    a: "Yes. Tasky offers a free plan with core features. You can upgrade anytime to access advanced tools for teams and collaboration."
+    a: "Yes. Tasky is completely free to use with all core features included. No subscriptions or hidden fees."
   },
   {
-    q: "Can I use Tasky with my team?",
-    a: "Absolutely. Tasky is built for both solo users and teams. You can invite members, assign tasks, and track progress together."
+    q: "Can I use Tasky with a team?",
+    a: "Tasky is designed for personal productivity. It focuses on helping individuals manage their own tasks efficiently."
   },
   {
-    q: "Does Tasky work on mobile devices?",
-    a: "Yes. Tasky works on all modern browsers and is fully responsive on mobile, tablet, and desktop."
+    q: "What features does Tasky provide?",
+    a: "You can create tasks, organize them into workspaces, use a Kanban board, track time with a Pomodoro timer, attach files, and view simple productivity reports."
   },
   {
-    q: "How secure is my data on Tasky?",
-    a: "Your data is encrypted and stored securely. We take privacy seriously and follow industry best practices to protect your information."
+    q: "Is my data secure?",
+    a: "Yes. Your data is securely stored and protected using modern authentication and best security practices."
+  },
+  {
+    q: "Does Tasky work on mobile?",
+    a: "Yes. Tasky works smoothly on desktop, tablet, and mobile browsers with a fully responsive design."
   }
 ];
+
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(null);

@@ -1,69 +1,134 @@
+/* =========================
+   Section
+========================= */
+
 .testimonial-wall {
-    width: 100%;
-    padding: 80px 5%;
-    background: #f9f9f9;
-    box-sizing: border-box;
-  }
+  width: 100%;
+  padding: 120px 5%;
+  background: #f6f7fb;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+
+/* =========================
+   Header
+========================= */
 
 .testimonial-header {
-  margin-top: 100px;
-  font-size: 36px;
+  font-size: 34px;        /* 🔥 살짝 축소 */
   font-weight: 800;
+  letter-spacing: -0.5px;
+
+  margin: 0 0 70px 0;
+  color: #111;
 }
-  
-  .testimonial-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    margin-bottom: 100px;
-  }
-  
-  .testimonial-card {
-    margin-top: 20px;
-    background: #fff;
-    border-radius: 12px;
-    padding: 24px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  
-  .testimonial-card h3 {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 12px;
-  }
-  
-  .testimonial-card p {
-    font-size: 16px;
-    color: #555;
-    margin-bottom: 16px;
-    line-height: 1.5;
-  }
-  
-  .testimonial-card .author {
-    font-size: 14px;
-    color: #888;
-    text-align: right;
-  }
-  
-  .see-more {
-    text-align: right;
-  }
-  
-  .see-more button {
-    padding: 12px 28px;
-    background: black;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-  }
-  
-  .see-more button:hover {
-    opacity: 0.85;
-  }
+
+
+/* =========================
+   Grid
+========================= */
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 28px;
+
+  max-width: 1200px;
+  margin: 0 auto 90px auto;
+}
+
+
+/* =========================
+   Card
+========================= */
+
+.testimonial-card {
+  background: white;
+
+  border-radius: 16px;
+  padding: 28px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+
+  /* 🔥 softer shadow */
+  box-shadow: 0 6px 24px rgba(0,0,0,0.05);
+
+  transition: all 0.2s ease;
+}
+
+/* 🔥 SaaS hover */
+.testimonial-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+}
+
+
+/* =========================
+   Title
+========================= */
+
+.testimonial-card h3 {
+  font-size: 17px;       /* 🔥 작게 */
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #222;
+}
+
+
+/* =========================
+   Body Text
+========================= */
+
+.testimonial-card p {
+  font-size: 15px;       /* 🔥 16 → 15 */
+  line-height: 1.7;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+
+/* =========================
+   Author
+========================= */
+
+.testimonial-card .author {
+  font-size: 13px;
+  color: #9aa0a6;
+  text-align: right;
+}
+
+
+/* =========================
+   Button Area
+========================= */
+
+.see-more {
+  text-align: center; /* 🔥 가운데가 더 자연스러움 */
+}
+
+
+/* 🔥 CTA 버튼 통일 (Hero/Feature 스타일 동일) */
+.see-more button {
+  padding: 11px 22px;
+
+  background: #111;
+  color: white;
+
+  border: none;
+  border-radius: 10px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.18s ease;
+}
+
   
   /* 반응형 */
   @media (max-width: 768px) {

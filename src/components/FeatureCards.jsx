@@ -1,33 +1,48 @@
 import "./FeatureCards.css";
-import taskImg from "../assets/hero-bg.jpg";
-import teamImg from "../assets/hero-bg.jpg";
-import analyticsImg from "../assets/hero-bg.jpg";
+import Img1 from "../assets/Featurecard-1.png";
+import Img2 from "../assets/Featurecard-2.png";
+import Img3 from "../assets/Featurecard-3.png";
 
 function FeatureCard() {
   const cards = [
     {
-      img: taskImg,
-      title: "MANAGE TASKS",
-      description: "Easily create, track, and organize your daily tasks efficiently.",
+      img: Img1,
+      title: "SIMPLE",
+      description:
+        "Clean and distraction-free design so you can focus on what matters.",
     },
     {
-      img: teamImg,
-      title: "TEAM COLLABORATION",
-      description: "Collaborate with your team seamlessly and stay on top of projects.",
+      img: Img2,
+      title: "PERSONAL",
+      description:
+        "Built for individuals who want a lightweight daily task manager.",
     },
     {
-      img: analyticsImg,
-      title: "INSIGHTS & ANALYTICS",
-      description: "Get actionable insights from your task and project data.",
+      img: Img3,
+      title: "DISTRACTION-FREE",
+      description:
+        "Stay focused with a clutter-free workspace that helps you get things done faster.",
     },
   ];
 
   return (
     <section className="callout">
+
+      <h1 className="callout-header">
+        Designed for focus. Built for everyday life.
+      </h1>
+
+      <p className="callout-sub">
+        Tasky keeps things simple so you can plan your day, stay organized,
+        and get more done without distractions.
+      </p>
+
       <div className="callout-container">
         {cards.map((card, index) => (
           <div className="callout-card" key={index}>
-            <img src={card.img} alt={card.title} className="card-image" />
+            <div className="card-image">
+              <img src={card.img} alt={card.title} />
+            </div>
             <h3 className="card-title">{card.title}</h3>
             <p className="card-description">{card.description}</p>
           </div>

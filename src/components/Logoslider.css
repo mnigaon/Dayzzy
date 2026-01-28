@@ -1,52 +1,116 @@
+/* =========================
+   Section
+========================= */
+
 .testimonial {
-    width: 100%;
-    padding: 60px 20px;
-    background: #f9f9f9;
-    text-align: center;
+  width: 100%;
+  padding: 100px 20px;
+  background: #f6f7fb;   /* 🔥 더 부드러운 SaaS 톤 */
+  text-align: center;
+}
+
+
+/* =========================
+   헤드 텍스트
+========================= */
+
+.testimonial-text {
+  font-size: 14px;       /* 🔥 작게 */
+  font-weight: 600;
+  letter-spacing: 1.5px; /* 🔥 SaaS 감성 */
+  text-transform: uppercase;
+
+  color: #8b97ad;        /* 🔥 Tasky 메인 컬러 계열 */
+
+  margin-bottom: 56px;
+}
+
+
+/* =========================
+   슬라이더 컨테이너
+========================= */
+
+.logo-slider {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+
+
+/* =========================
+   트랙
+========================= */
+
+.slider-track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+
+  animation: scroll 28s linear infinite; /* 🔥 살짝 느리게 */
+}
+
+
+/* =========================
+   로고 카드
+========================= */
+
+.logo-item {
+  flex: 0 0 180px;  /* 🔥 조금 넓게 */
+  height: 90px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0 28px;
+
+  border-radius: 14px;
+
+  transition: all 0.2s ease;
+}
+
+
+/* 🔥 subtle hover (있으면 고급짐) */
+.logo-item:hover {
+  transform: translateY(-4px);
+}
+
+
+/* =========================
+   이미지
+========================= */
+
+.logo-item img {
+  max-width: 110px;
+  max-height: 48px;
+
+  object-fit: contain;
+
+  opacity: 0.55;        /* 🔥 기본 흐리게 */
+  filter: grayscale(100%);
+
+  transition: all 0.2s ease;
+}
+
+/* hover 시 살아남 */
+.logo-item:hover img {
+  opacity: 1;
+  filter: grayscale(0%);
+}
+
+
+/* =========================
+   애니메이션
+========================= */
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
   }
-  
-  .testimonial-text {
-    color: #999;
-    font-size: 20px;
-    margin-bottom: 40px;
-    font-weight: 500;
+  100% {
+    transform: translateX(-50%);
   }
-  
-  /* 슬라이더 컨테이너 */
-  .logo-slider {
-    overflow: hidden;
-    width: 100%;
-  }
-  
-  .slider-track {
-    display: flex;
-    width: calc(200%); /* 2배 늘려 무한 반복 */
-    animation: scroll 25s linear infinite;
-  }
-  
-  .logo-item {
-    flex: 0 0 160px; /* 로고 하나 너비 */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 20px;
-  }
-  
-  .logo-item img {
-    max-width: 100%;
-    max-height: 60px;
-    object-fit: contain;
-  }
-  
-  /* 슬라이드 애니메이션 */
-  @keyframes scroll {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
-  }
+}
   
   /* 반응형 */
   @media (max-width: 768px) {

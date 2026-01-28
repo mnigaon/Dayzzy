@@ -3,6 +3,8 @@ import { useAuth } from "../../firebase/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 import "./Dashboard.css";
 
@@ -20,6 +22,8 @@ import KanbanPage from "../kanban/KanbanPage"; // ⭐ 칸반
 
 
 export default function Dashboard() {
+  const navigate = useNavigate();
+
   const { currentUser } = useAuth();
 
   const [activeTab, setActiveTab] = useState("home"); // home, tasks, workspace, timer
@@ -28,10 +32,12 @@ export default function Dashboard() {
   const handleLogout = async () => {
     try {
       await signOut(auth);
+      navigate("/", { replace: true });  // ⭐ 여기 추가
     } catch (err) {
       console.error("Logout failed:", err);
     }
   };
+  
 
   const renderContent = () => {
     if (activeTab === "workspace") {

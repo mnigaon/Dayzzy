@@ -14,7 +14,7 @@ function Header() {
         {/* Right: Nav */}
         <nav className="nav">
           <Link to="/contact" className="nav-link">
-            Contact Sales
+            Contact
           </Link>
           <Link to="/auth" className="nav-button">
             Go To My Account

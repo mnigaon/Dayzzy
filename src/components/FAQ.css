@@ -1,52 +1,115 @@
+/* =========================
+   Section
+========================= */
+
 .faq-section {
-    max-width: 1200px;
-    margin: 120px auto;
-    padding: 0 5%;
-  }
-  
-  .faq-title {
-    font-size: 36px;
-    font-weight: 800;
-    margin-bottom: 50px;
-    text-align: center;
-  }
-  
-  .faq-item {
-    border-bottom: 1px solid #ddd;
-    padding: 22px 0;
-    cursor: pointer;
-  }
-  
-  .faq-question-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .faq-question {
-    font-size: 18px;
-    font-weight: 500;
-    transition: font-weight 0.2s ease;
-  }
-  
-  .faq-item:hover .faq-question {
-    font-weight: 700;
-  }
-  
-  .faq-icon {
-    font-size: 22px;
-    color: #111;
-  }
-  
-  .faq-answer-wrapper {
-    overflow: hidden;
-    transition: max-height 0.35s ease;
-  }
-  
-  .faq-answer {
-    margin-top: 40px;
-    margin-bottom: 20px;
-    font-size: 17px;
-    color: #555;
-    line-height: 1.6;
-  }
+  width: 100%;
+
+  /* 🔥 margin 제거 (흰색 버그 원인) */
+  margin: 0;
+
+  /* 🔥 padding으로 간격 처리 */
+  padding: 120px 5%;
+
+  background: #f6f7fb;
+  box-sizing: border-box;
+}
+
+
+/* =========================
+   Title
+========================= */
+
+.faq-title {
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+
+  margin-bottom: 70px;
+  text-align: center;
+
+  color: #111;
+}
+
+
+/* =========================
+   FAQ Item
+========================= */
+
+.faq-item {
+  max-width: 900px;
+  margin: 0 auto;
+
+  border-bottom: 1px solid #e6e8ee;
+  padding: 22px 6px;
+
+  cursor: pointer;
+
+  transition: background 0.15s ease;
+}
+
+/* 🔥 subtle hover */
+.faq-item:hover {
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 8px;
+}
+
+
+/* =========================
+   Question Row
+========================= */
+
+.faq-question-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+
+/* 🔥 Question text (Tasky 톤) */
+.faq-question {
+  font-size: 16px;   /* 🔥 18 → 16 */
+  font-weight: 600;
+  color: #222;
+
+  transition: color 0.15s ease;
+}
+
+.faq-item:hover .faq-question {
+  color: #000;
+}
+
+
+/* =========================
+   Icon
+========================= */
+
+.faq-icon {
+  font-size: 18px;
+  color: #888;
+
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.faq-item:hover .faq-icon {
+  color: #111;
+}
+
+
+/* =========================
+   Answer
+========================= */
+
+.faq-answer-wrapper {
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+
+.faq-answer {
+  margin: 14px 0 18px 0;
+
+  font-size: 15px;   /* 🔥 작게 */
+  line-height: 1.7;
+  color: #666;
+}

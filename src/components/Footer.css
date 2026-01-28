@@ -1,99 +1,168 @@
+/* =========================
+   Footer
+========================= */
+
 .footer {
-    width: 100%;
-    padding: 60px 5%;
-    color: #111;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    box-sizing: border-box;
-    margin-bottom: 150px;
-  }
-  
-  .footer-left {
-    display: flex;
+  width: 100%;
+
+  padding: 100px 5%;   /* 🔥 margin 대신 padding */
+  background: #f6f7fb;
+
+  color: #111;
+
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 60px;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================
+   Left
+========================= */
+
+.footer-left {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+
+/* 🔥 로고 (Header와 통일) */
+.footer-logo {
+  font-size: 20px;   /* 🔥 35 → 20 */
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+
+/* =========================
+   Social Links
+========================= */
+
+.social-links {
+  display: flex;
+  gap: 14px;
+}
+
+/* 🔥 아이콘 버튼 */
+.social-links a {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background: white;
+  border: 1px solid #e6e8ee;
+
+  color: #666;
+  font-size: 15px;
+
+  transition: all 0.15s ease;
+}
+
+/* hover */
+.social-links a:hover {
+  background: #111;
+  color: white;
+  transform: translateY(-2px);
+}
+
+
+/* =========================
+   Right Area
+========================= */
+
+.footer-right {
+  display: flex;
+  gap: 80px;
+  align-items: flex-start;
+}
+
+
+/* =========================
+   Links
+========================= */
+
+.footer-links {
+  display: flex;
+  gap: 60px;
+}
+
+.footer-links .link-group {
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* 🔥 그룹 제목 */
+.footer-links .link-group h4 {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+
+  margin-bottom: 14px;
+  color: #888;
+}
+
+
+/* 리스트 */
+.footer-links .link-group ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links .link-group ul li {
+  margin-bottom: 8px;
+}
+
+
+/* 🔥 링크 텍스트 */
+.footer-links .link-group ul li a {
+  text-decoration: none;
+
+  font-size: 14px;
+  color: #666;
+
+  transition: color 0.15s ease;
+}
+
+.footer-links .link-group ul li a:hover {
+  color: #111;
+}
+
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 768px) {
+  .footer {
     flex-direction: column;
-    gap: 20px;
+    text-align: center;
+    gap: 40px;
   }
-  
-  .footer-logo {
-    font-size: 35px;
-    font-weight: 800;
-  }
-  
-  .social-links a {
-    margin-right: 16px;
-    font-size: 20px;
-    color: #111;
-    text-decoration: none;
-  }
-  
-  .social-links a:hover {
-    opacity: 0.7;
-  }
-  
+
   .footer-right {
-    display: flex;
-    gap: 60px; /* Features / Learn more / Support 간격 */
-    align-items: flex-start;
-  }
-  
-  .footer-links {
-    display: flex;
-    gap: 40px; /* 각 그룹 사이 간격 */
-  }
-  
-  .footer-links .link-group {
-    display: flex;
     flex-direction: column;
+    gap: 30px;
   }
-  
-  .footer-links .link-group h4 {
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 12px;
+
+  .footer-links {
+    flex-direction: column;
+    gap: 30px;
   }
-  
-  .footer-links .link-group ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+
+  .social-links {
+    justify-content: center;
   }
-  
-  .footer-links .link-group ul li {
-    margin-bottom: 8px;
-  }
-  
-  .footer-links .link-group ul li a {
-    text-decoration: none;
-    color: #555;
-    font-size: 14px;
-  }
-  
-  .footer-links .link-group ul li a:hover {
-    color: #111;
-  }
-  
-  /* 반응형 */
-  @media (max-width: 768px) {
-    .footer {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 40px;
-    }
-  
-    .footer-right {
-      flex-direction: column;
-      gap: 20px;
-    }
-  
-    .footer-links {
-      flex-direction: column;
-      gap: 20px;
-    }
-  
-    .social-links a {
-      margin-right: 12px;
-    }
-  }
+}
    

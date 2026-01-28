@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../firebase/AuthContext";
 import { auth } from "../../../firebase/firebase";
 import {
@@ -8,6 +9,8 @@ import {
 } from "firebase/auth";
 
 export default function ProfileCard() {
+  const navigate = useNavigate();
+
   const { currentUser } = useAuth();
 
   const [name, setName] = useState("");
@@ -62,9 +65,9 @@ export default function ProfileCard() {
   ========================= */
   const handleLogout = async () => {
     await signOut(auth);
+    navigate("/", { replace: true });
   };
-
-  if (!currentUser) return null;
+  
 
   return (
     <div className="settings-card">

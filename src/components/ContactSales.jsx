@@ -27,14 +27,15 @@ export default function ContactSales() {
 
   return (
     <section className="contact-sales">
-      <h1>Contact Sales</h1>
-      <p>Tell us about your team and we’ll get back to you.</p>
+      <h1>Get in Touch</h1>
+      <p>Have feedback, questions, or feature requests?
+      We’d love to hear from you.</p>
 
       <form ref={form} onSubmit={sendEmail} className="contact-form">
         <input type="text" name="user_name" placeholder="Your Name" required />
         <input type="email" name="user_email" placeholder="Your Email" required />
-        <input type="text" name="company" placeholder="Company / Team Name" />
-        <textarea name="message" placeholder="How can we help you?" required />
+        <input type="text" name="subject" placeholder="Subject (optional)" />
+        <textarea name="message" placeholder="Write your message..." required />
 
         <button type="submit">Send Message</button>
       </form>

@@ -1,7 +1,8 @@
 /* 전역 스타일 최소화 */
-body {
+html, body {
     margin: 0;
     padding: 0;
     background-color: #f9f9f9;
+    overflow-x: hidden;
   }
   

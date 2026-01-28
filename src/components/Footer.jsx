@@ -1,4 +1,6 @@
 import "./Footer.css";
+import { FaGithub, FaLinkedinIn, FaInstagram } from "react-icons/fa";
+import { BsTwitterX } from "react-icons/bs";
 
 function Footer() {
   return (
@@ -6,10 +8,21 @@ function Footer() {
       <div className="footer-left">
         <h2 className="footer-logo">TASKY</h2>
         <div className="social-links">
-          <a href="#" aria-label="Instagram">📷</a>
-          <a href="#" aria-label="Twitter">🐦</a>
-          <a href="#" aria-label="GitHub">🐙</a>
-          <a href="#" aria-label="LinkedIn">🔗</a>
+          <a href="#" onClick={(e) => e.preventDefault()} aria-label="Instagram">
+            <FaInstagram />
+          </a>
+
+          <a href="#" onClick={(e) => e.preventDefault()} aria-label="X">
+            <BsTwitterX />
+          </a>
+
+          <a href="#" onClick={(e) => e.preventDefault()} aria-label="GitHub">
+            <FaGithub />
+          </a>
+
+          <a href="#" onClick={(e) => e.preventDefault()} aria-label="LinkedIn">
+            <FaLinkedinIn />
+          </a>
         </div>
       </div>
       <div className="footer-right">
