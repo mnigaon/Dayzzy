@@ -1,7 +1,7 @@
 // src/components/dashboard/WorkspaceList.jsx
 import React, { useState, useEffect } from "react";
 import { db } from "../../firebase/firebase";
-import { collection, addDoc, deleteDoc, doc, onSnapshot, updateDoc, serverTimestamp } from "firebase/firestore";
+import { collection, addDoc, deleteDoc, doc, onSnapshot, updateDoc, serverTimestamp, query, where } from "firebase/firestore";
 import { useAuth } from "../../firebase/AuthContext";
 import WorkspaceCard from "./WorkspaceCard";
 import "./WorkspaceList.css";
@@ -14,11 +14,10 @@ export default function WorkspaceList({ onSelectWorkspace }) {
   // 🔹 실시간 워크스페이스 불러오기
   useEffect(() => {
     if (!currentUser) return;
-    const q = collection(db, "workspaces");
+    const q = query(collection(db, "workspaces"), where("userId", "==", currentUser.uid));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       let data = snapshot.docs
-        .map((doc) => ({ id: doc.id, ...doc.data() }))
-        .filter((ws) => ws.userId === currentUser.uid);
+        .map((doc) => ({ id: doc.id, ...doc.data() }));
 
       // pinned 먼저, 그 다음 알파벳순
       data.sort((a, b) => {

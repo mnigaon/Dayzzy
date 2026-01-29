@@ -2,7 +2,7 @@
 import { useAuth } from "../../firebase/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 
@@ -13,7 +13,7 @@ import WorkspaceList from "./WorkspaceList";
 import Tasks from "./Tasks";
 import TimerPage from "../timer/TimerPage"; // Timer 탭
 import FloatingTimer from "../timer/FloatingTimer";
-import { TimerProvider } from "../../context/TimerContext";
+// TimerProvider 제거됨
 import Settings from "../settings/Settings";
 
 import KanbanPage from "../kanban/KanbanPage"; // ⭐ 칸반
@@ -26,8 +26,13 @@ export default function Dashboard() {
 
   const { currentUser } = useAuth();
 
-  const [activeTab, setActiveTab] = useState("home"); // home, tasks, workspace, timer
+  /* 🔄 탭 상태 유지 (LocalStorage) */
+  const [activeTab, setActiveTab] = useState(() => localStorage.getItem("dashboard_activeTab") || "home");
   const [activeWorkspace, setActiveWorkspace] = useState(null); // 선택된 워크스페이스
+
+  useEffect(() => {
+    localStorage.setItem("dashboard_activeTab", activeTab);
+  }, [activeTab]);
 
   const handleLogout = async () => {
     try {
@@ -37,7 +42,7 @@ export default function Dashboard() {
       console.error("Logout failed:", err);
     }
   };
-  
+
 
   const renderContent = () => {
     if (activeTab === "workspace") {
@@ -62,7 +67,7 @@ export default function Dashboard() {
     } else if (activeTab === "kanban") {
       return <KanbanPage />; // ⭐ 칸반 연결
     } else if (activeTab === "timer") {
-      return <TimerPage />;     
+      return <TimerPage />;
     } else if (activeTab === "settings") {
       return <Settings />;
     } else if (activeTab === "home") {
@@ -72,84 +77,84 @@ export default function Dashboard() {
           setActiveWorkspace={setActiveWorkspace}
         />
       );
-    } 
+    }
     else {
       return null;
     }
   };
-  
+
 
   return (
-    <TimerProvider>
-      <div className="dashboard">
-        <aside className="sidebar">
-          <h2
-            className="logo"
+
+    <div className="dashboard">
+      <aside className="sidebar">
+        <h2
+          className="logo"
+          onClick={() => {
+            setActiveTab("home");
+            setActiveWorkspace(null);
+          }}
+        >
+          TASKY
+        </h2>
+
+        <ul>
+          <li
+            className={activeTab === "tasks" ? "active" : ""}
             onClick={() => {
-              setActiveTab("home");
+              setActiveTab("tasks");
               setActiveWorkspace(null);
             }}
           >
-            TASKY
-          </h2>
+            Tasks
+          </li>
+          <li
+            className={activeTab === "kanban" ? "active" : ""}
+            onClick={() => {
+              setActiveTab("kanban");
+              setActiveWorkspace(null);
+            }}
+          >
+            Kanban
+          </li>
+          <li
+            className={activeTab === "workspace" ? "active" : ""}
+            onClick={() => {
+              setActiveTab("workspace");
+              setActiveWorkspace(null);
+            }}
+          >
+            Work Space
+          </li>
+          <li
+            className={activeTab === "timer" ? "active" : ""}
+            onClick={() => {
+              setActiveTab("timer");
+              setActiveWorkspace(null);
+            }}
+          >
+            Timer
+          </li>
+          <li
+            className={activeTab === "settings" ? "active" : ""}
+            onClick={() => setActiveTab("settings")}
+          >
+            Settings
+          </li>
+          <li onClick={handleLogout} className="logout-btn">
+            Logout
+          </li>
+        </ul>
+      </aside>
 
-          <ul>
-            <li
-              className={activeTab === "tasks" ? "active" : ""}
-              onClick={() => {
-                setActiveTab("tasks");
-                setActiveWorkspace(null);
-              }}
-            >
-              Tasks
-            </li>
-            <li
-              className={activeTab === "kanban" ? "active" : ""}
-              onClick={() => {
-                setActiveTab("kanban");
-                setActiveWorkspace(null);
-              }}
-            >
-              Kanban
-            </li>
-            <li
-              className={activeTab === "workspace" ? "active" : ""}
-              onClick={() => {
-                setActiveTab("workspace");
-                setActiveWorkspace(null);
-              }}
-            >
-              Work Space
-            </li>
-            <li
-              className={activeTab === "timer" ? "active" : ""}
-              onClick={() => {
-                setActiveTab("timer");
-                setActiveWorkspace(null);
-              }}
-            >
-              Timer
-            </li>
-            <li
-              className={activeTab === "settings" ? "active" : ""}
-              onClick={() => setActiveTab("settings")}
-            >
-              Settings
-            </li>
-            <li onClick={handleLogout} className="logout-btn">
-              Logout
-            </li>
-          </ul>
-        </aside>
+      <main className="main-content">
+        <h1>Welcome, {currentUser?.displayName || currentUser?.email}!</h1>
+        {renderContent()}
+      </main>
 
-        <main className="main-content">
-          <h1>Welcome, {currentUser?.displayName || currentUser?.email}!</h1>
-          {renderContent()}
-        </main>
-
-        {/* Timer가 실행 중이면 FloatingTimer 표시 */}
-        <FloatingTimer onClick={() => setActiveTab("timer")} />
-      </div>
-    </TimerProvider>
+      {/* Timer가 실행 중이면 FloatingTimer 표시 */}
+      <FloatingTimer onClick={() => setActiveTab("timer")} />
+    </div>
   );
+
 }

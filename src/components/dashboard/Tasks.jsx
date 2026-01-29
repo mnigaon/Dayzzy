@@ -12,6 +12,7 @@ import {
   serverTimestamp,
   Timestamp,
   getDocs,
+  where,
 } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useAuth } from "../../firebase/AuthContext";
@@ -47,15 +48,20 @@ export default function Tasks({ workspaceId = null }) {
   /* =================================================
      workspace 로딩
   ================================================= */
+  /* =================================================
+     workspace 로딩
+  ================================================= */
   useEffect(() => {
+    if (!currentUser) return;
     const load = async () => {
-      const snap = await getDocs(collection(db, "workspaces"));
+      const q = query(collection(db, "workspaces"), where("userId", "==", currentUser.uid));
+      const snap = await getDocs(q);
       const map = {};
       snap.forEach((d) => (map[d.id] = d.data().name));
       setWorkspaceMap(map);
     };
     load();
-  }, []);
+  }, [currentUser]);
 
   /* =================================================
      실시간 tasks
@@ -63,12 +69,15 @@ export default function Tasks({ workspaceId = null }) {
   useEffect(() => {
     if (!currentUser) return;
 
-    const q = query(collection(db, "tasks"), orderBy("order", "asc"));
+    let q = query(
+      collection(db, "tasks"),
+      where("userId", "==", currentUser.uid),
+      orderBy("order", "asc")
+    );
 
     return onSnapshot(q, (snap) => {
       const data = snap.docs
         .map((d) => ({ id: d.id, ...d.data() }))
-        .filter((t) => t.userId === currentUser.uid)
         .filter((t) => (workspaceId ? t.workspaceId === workspaceId : true));
 
       setTasks(data);

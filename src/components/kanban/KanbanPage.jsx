@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { doc, updateDoc, collection, getDocs } from "firebase/firestore";
+import { doc, updateDoc, collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 import { useAuth } from "../../firebase/AuthContext";
 import KanbanBoard from "./KanbanBoard";
@@ -19,7 +19,8 @@ export default function KanbanPage({ workspaceId = null }) {
   ========================= */
   useEffect(() => {
     const load = async () => {
-      const snap = await getDocs(collection(db, "workspaces"));
+      const q = query(collection(db, "workspaces"), where("userId", "==", currentUser.uid));
+      const snap = await getDocs(q);
       const map = {};
 
       snap.forEach((d) => {

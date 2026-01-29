@@ -79,8 +79,8 @@ export default function DashboardHome({ setActiveTab, setActiveWorkspace }) {
                 <div className="focus-time">
                   {isRunning
                     ? `${currentMinutes.toString().padStart(2, "0")}:${currentSeconds
-                        .toString()
-                        .padStart(2, "0")}`
+                      .toString()
+                      .padStart(2, "0")}`
                     : `${todayFocusTime} min`}
                 </div>
               </div>

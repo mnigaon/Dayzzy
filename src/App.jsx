@@ -17,7 +17,7 @@ import Register from "./components/auth/Register";
 import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRoute from "./components/dashboard/PrivateRoute";
 
-import { TimerProvider } from "./context/TimerContext";
+// TimerProvider 제거됨 (index.js로 이동)
 import TimerPage from "./components/timer/TimerPage";
 import "./styles/theme.css";
 
@@ -68,7 +68,7 @@ function App() {
     return () =>
       window.removeEventListener("darkmode-change", applyDark);
   }, []);
-  
+
 
   return (
     <>
@@ -105,9 +105,7 @@ function App() {
         <Route
           path="/timer"
           element={
-            <TimerProvider>
-              <TimerPage />
-            </TimerProvider>
+            <TimerPage />
           }
         />
 
@@ -116,9 +114,7 @@ function App() {
           path="/dashboard/*"
           element={
             <PrivateRoute>
-              <TimerProvider>
-                <Dashboard />
-              </TimerProvider>
+              <Dashboard />
             </PrivateRoute>
           }
         />

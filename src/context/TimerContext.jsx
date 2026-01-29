@@ -14,10 +14,24 @@ const MODE_CONFIG = {
 
 export const TimerProvider = ({ children }) => {
   const { currentUser } = useAuth();
-  const [mode, setMode] = useState("pomodoro");
-  const [secondsLeft, setSecondsLeft] = useState(MODE_CONFIG.pomodoro.seconds);
-  const [isRunning, setIsRunning] = useState(false);
+  /* =========================
+     🔄 상태 초기화 (LocalStorage 연동)
+  ========================= */
+  const [mode, setMode] = useState(() => localStorage.getItem("timer_mode") || "pomodoro");
+  const [secondsLeft, setSecondsLeft] = useState(() => {
+    const saved = localStorage.getItem("timer_secondsLeft");
+    return saved ? Number(saved) : MODE_CONFIG.pomodoro.seconds;
+  });
+  const [isRunning, setIsRunning] = useState(false); // 새로고침 시 안전하게 정지 상태
   const audioRef = useRef(null);
+
+  /* =========================
+     💾 상태 저장 (LocalStorage)
+  ========================= */
+  useEffect(() => {
+    localStorage.setItem("timer_mode", mode);
+    localStorage.setItem("timer_secondsLeft", secondsLeft);
+  }, [mode, secondsLeft]);
 
   // =========================
   // Timer 인터벌

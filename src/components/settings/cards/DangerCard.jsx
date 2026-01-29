@@ -5,6 +5,8 @@ import {
   getDocs,
   writeBatch,
   doc,
+  query,
+  where,
 } from "firebase/firestore";
 import { deleteUser } from "firebase/auth";
 
@@ -23,15 +25,14 @@ export default function DangerCard() {
     if (!ok) return;
 
     try {
-      const snap = await getDocs(collection(db, "tasks"));
+      // 쿼리로 내 태스크만 가져오기 (절대 전체 조회 금지)
+      const q = query(collection(db, "tasks"), where("userId", "==", currentUser.uid));
+      const snap = await getDocs(q);
 
       const batch = writeBatch(db);
 
       snap.docs.forEach((d) => {
-        const data = d.data();
-        if (data.userId === currentUser.uid) {
-          batch.delete(doc(db, "tasks", d.id));
-        }
+        batch.delete(doc(db, "tasks", d.id));
       });
 
       await batch.commit();
@@ -53,28 +54,25 @@ export default function DangerCard() {
     if (!ok) return;
 
     try {
-      /* 1️⃣ tasks 삭제 */
-      const tasksSnap = await getDocs(collection(db, "tasks"));
       const batch = writeBatch(db);
 
+      /* 1️⃣ tasks 삭제 */
+      const tasksQuery = query(collection(db, "tasks"), where("userId", "==", currentUser.uid));
+      const tasksSnap = await getDocs(tasksQuery);
+
       tasksSnap.docs.forEach((d) => {
-        const data = d.data();
-        if (data.userId === currentUser.uid) {
-          batch.delete(doc(db, "tasks", d.id));
-        }
+        batch.delete(doc(db, "tasks", d.id));
       });
 
       /* 2️⃣ workspaces 삭제 */
-      const wsSnap = await getDocs(collection(db, "workspaces"));
+      const wsQuery = query(collection(db, "workspaces"), where("userId", "==", currentUser.uid));
+      const wsSnap = await getDocs(wsQuery);
 
       wsSnap.docs.forEach((d) => {
-        const data = d.data();
-        if (data.userId === currentUser.uid) {
-          batch.delete(doc(db, "workspaces", d.id));
-        }
+        batch.delete(doc(db, "workspaces", d.id));
       });
 
-      await batch.commit();
+      await batch.commit(); // 여기서 DB 삭제는 끝내고
 
       /* 3️⃣ Firebase 계정 삭제 */
       await deleteUser(auth.currentUser);

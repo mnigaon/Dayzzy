@@ -8,6 +8,8 @@ import {
   deleteDoc,
   addDoc,
   doc,
+  query,
+  where,
 } from "firebase/firestore";
 
 export default function WorkspaceCard() {
@@ -22,10 +24,10 @@ export default function WorkspaceCard() {
   useEffect(() => {
     if (!currentUser) return;
 
-    const unsub = onSnapshot(collection(db, "workspaces"), (snap) => {
+    const q = query(collection(db, "workspaces"), where("userId", "==", currentUser.uid));
+    const unsub = onSnapshot(q, (snap) => {
       const data = snap.docs
-        .map((d) => ({ id: d.id, ...d.data() }))
-        .filter((w) => w.userId === currentUser.uid);
+        .map((d) => ({ id: d.id, ...d.data() }));
 
       setWorkspaces(data);
     });

@@ -6,14 +6,14 @@ import { getStorage } from "firebase/storage";
 
 // Firebase 프로젝트 설정 (Firebase 콘솔에서 복사)
 const firebaseConfig = {
-    apiKey: "AIzaSyCN3ZqNtBguKHl84DzuuZEdAvDRAFWuTx0",
-    authDomain: "tasky-d81f5.firebaseapp.com",
-    projectId: "tasky-d81f5",
-    storageBucket: "tasky-d81f5.firebasestorage.app",
-    messagingSenderId: "994055416601",
-    appId: "1:994055416601:web:22d3ae6e7d05b4b5a07388",
-    measurementId: "G-Z92NR985ZM"
-  };
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
+};
 
 // Firebase 앱 초기화
 const app = initializeApp(firebaseConfig);
