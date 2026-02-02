@@ -123,7 +123,7 @@ export const TimerProvider = ({ children }) => {
     if (isRunning && settings.ambientSound && settings.ambientSound !== 'none') {
       ambientRef.current.src = `/${settings.ambientSound}.mp3`;
       ambientRef.current.loop = true;
-      ambientRef.current.play().catch(e => console.log("Audio play failed (interaction needed):", e));
+      ambientRef.current.play().catch(e => console.error("Audio play failed (interaction needed):", e));
     } else {
       ambientRef.current.pause();
       ambientRef.current.currentTime = 0;
@@ -135,7 +135,7 @@ export const TimerProvider = ({ children }) => {
     if (settings.alarmSound && settings.alarmSound !== 'none') {
       alarmRef.current.src = `/${settings.alarmSound}.mp3`;
       alarmRef.current.loop = false;
-      alarmRef.current.play().catch(e => console.log("Alarm play failed:", e));
+      alarmRef.current.play().catch(e => console.error("Alarm play failed:", e));
 
       // Stop automatically after 5 seconds
       setTimeout(() => {
@@ -158,15 +158,7 @@ export const TimerProvider = ({ children }) => {
         if (mode === "pomodoro" && prev % 60 === 0 && prev !== (customPomodoro * 60)) {
           // Firestore update for water
           if (currentUser) {
-            const gardenRef = doc(db, "users", currentUser.uid, "garden", "data");
-            // Use a transaction or get/set to increment safely? 
-            // Simple set for now since we have local state sync generally, 
-            // but better to rely on previous 'water' state + 1
-            // However, we are inside a closure here.
-            // Correct approach: trigger a separate effect or function?
-            // For simplicity, we call setWater which triggers 'saveGarden' if we wire it? 
-            // No, saveGarden writes to DB. 
-            // Let's write directly using current state ref or just functional update.
+
           }
         }
 
@@ -183,13 +175,7 @@ export const TimerProvider = ({ children }) => {
         tickRef.current = 0;
         // Earn water!
         if (currentUser) {
-          // We need the latest water value. 
-          // Since we are inside useEffect, we shouldn't depend on 'water' state directly to avoid re-subscription loop.
-          // We will just read the document increment or use Firestore Increment.
-          // BUT, to keep it simple and synced with our local listener:
-          // We'll trust the listener and just do an atomic increment in Firestore.
-          // Actually, importing 'increment' is best.
-          // Let's just do a specific update function.
+
           incrementWater();
         }
       }
@@ -197,22 +183,13 @@ export const TimerProvider = ({ children }) => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [isRunning, mode, currentUser]); // Removed 'water' dependency to avoid reset
+  }, [isRunning, mode, currentUser, customPomodoro, customBreak]); // Removed 'water' dependency to avoid reset
 
   const incrementWater = async () => {
     if (!currentUser) return;
-    // We can read the current water from state? 
-    // Actually state might be stale inside setInterval closure if dependencies aren't updated.
-    // But we can just use Firestore update.
+    // We can just use Firestore update.
     const gardenRef = doc(db, "users", currentUser.uid, "garden", "data");
     // Use setDoc with merge to avoid overwriting everything if not loaded
-    // Ideally use updateDoc + increment, but let's read-modify-write via listener or simple state.
-    // Simplest: We have `water` state in context scope. 
-    // If we include `water` in dependency, interval resets every second. Bad.
-    // So we use functional update on Firestore? 
-    // Let's use `getDoc` to be safe or just functional state?
-    // Actually, we can just use `water` from outer scope if we were careful.
-    // Pivot: Use functional setWater and a useEffect to sync to DB?
   };
 
   // Real implementation of Water Increment inside effect with correct dependency management or ref
@@ -360,7 +337,7 @@ export const TimerProvider = ({ children }) => {
 
 
   // ... (Rest of Methods unchanged: changeMode, setTimerConfig, start, pause, reset, history) ...
-  // Re-implementing simplified versions for clarity in replacement
+
 
   const changeMode = (newMode) => {
     setMode(newMode);
@@ -473,9 +450,7 @@ export const TimerProvider = ({ children }) => {
   };
 
   // Stats/History functions (Keep usage of db as is)
-  const getRankingAllTime = async () => { /* ... existing ... */
-    // (Omitted for brevity in edit, but assumed kept or pasted if using full replace)
-    // Since I am doing a full file replace, I MUST paste the logic back.
+  const getRankingAllTime = async () => {
     try {
       const snap = await getDocs(collection(db, "focusTimes"));
       const map = {};
@@ -487,8 +462,7 @@ export const TimerProvider = ({ children }) => {
     } catch (e) { return []; }
   };
 
-  const getRankingThisWeek = async () => { /* ... existing ... */
-    // (Simplified logic re-paste)
+  const getRankingThisWeek = async () => {
     try {
       const today = new Date(); const start = new Date(); start.setDate(today.getDate() - 6);
       const snap = await getDocs(collection(db, "focusTimes"));

@@ -55,7 +55,7 @@ export default function MemberModal({ workspace, currentUser, onClose }) {
                     },
                     "fl41_kqu9IEPE1TlJ" // Public Key
                 );
-                console.log("Invitation email sent successfully!");
+
             } catch (mailErr) {
                 console.error("Failed to send invitation email:", mailErr);
                 // 메일 발송 실패해도 DB 업데이트는 성공했으므로 멤버 추가는 유지

@@ -16,6 +16,7 @@ import {
 import { useAuth } from "../../firebase/AuthContext";
 import { formatDate } from "../../utils/dateFormat";
 import TaskModal from "./TaskModal";
+import TodaysBriefingWidget from "./TodaysBriefingWidget";
 import "./Tasks.css";
 
 export default function Tasks({
@@ -271,6 +272,19 @@ export default function Tasks({
     await deleteDoc(doc(db, "tasks", id));
   };
 
+  // 9. 태스크 완료 토글 (위젯용)
+  const handleToggleComplete = async (task) => {
+    const newStatus = task.status === 'completed' ? 'pending' : 'completed';
+    try {
+      await updateDoc(doc(db, "tasks", task.id), {
+        status: newStatus,
+        updatedAt: serverTimestamp()
+      });
+    } catch (error) {
+      console.error("Failed to toggle task status:", error);
+    }
+  };
+
 
   const isShared = currentWorkspace && (currentWorkspace.userId !== currentUser.uid || (currentWorkspace.members && currentWorkspace.members.length > 0));
 
@@ -515,7 +529,36 @@ export default function Tasks({
       </div >
 
       {/* 🔴 RIGHT SECTION SIDEBAR (Same as WorkspaceList) */}
-      {workspaceId && wsStats && (
+      {!workspaceId ? (
+        <aside className="workspace-right-section task-sidebar">
+          <TodaysBriefingWidget
+            tasks={tasks}
+            onToggleTask={handleToggleComplete}
+            onTaskClick={setSelectedTask}
+          />
+
+          {/* Task Statistics Grid for Individual */}
+          {wsStats && (
+            <div className="category-section" style={{ marginTop: '20px' }}>
+              <h4 className="section-title">My Stats</h4>
+              <div className="category-grid">
+                <div className="cat-card total">
+                  <span className="count">{wsStats.total}</span>
+                  <span className="label">Total</span>
+                </div>
+                <div className="cat-card completed">
+                  <span className="count">{wsStats.completed}</span>
+                  <span className="label">Done</span>
+                </div>
+                <div className="cat-card waiting">
+                  <span className="count">{wsStats.waiting}</span>
+                  <span className="label">Todo</span>
+                </div>
+              </div>
+            </div>
+          )}
+        </aside>
+      ) : (wsStats && (
         <aside className="workspace-right-section task-sidebar">
           {/* Selected Project Card */}
           <div className="stats-card selected-project-info">
@@ -573,7 +616,7 @@ export default function Tasks({
             </div>
           </div>
         </aside>
-      )}
+      ))}
     </div>
   );
 }

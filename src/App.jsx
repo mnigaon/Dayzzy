@@ -1,6 +1,4 @@
-// src/App.jsx
 import { useEffect, useState } from "react";
-
 import { Routes, Route, useLocation } from "react-router-dom";
 import Header from "./components/Headerr";
 import Footer from "./components/Footer";
@@ -16,6 +14,7 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRoute from "./components/dashboard/PrivateRoute";
+import MobileRestrictedView from "./components/common/MobileRestrictedView";
 
 // TimerProvider 제거됨 (index.js로 이동)
 import TimerPage from "./components/timer/TimerPage";
@@ -45,6 +44,21 @@ function App() {
     location.pathname.startsWith(route)
   );
 
+  /* =========================
+     📱 Mobile Restriction Logic
+  ========================= */
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
@@ -70,6 +84,9 @@ function App() {
       window.removeEventListener("darkmode-change", applyDark);
   }, []);
 
+  if (isMobile) {
+    return <MobileRestrictedView />;
+  }
 
   return (
     <>

@@ -73,13 +73,13 @@ export default function WhiteboardPage() {
     ================================ */
     const handleDelete = async (e, id) => {
         e.stopPropagation();
-        console.log("Attempting to delete whiteboard with ID:", id);
+
 
         if (!window.confirm("Delete this whiteboard permanently? 🗑️")) return;
 
         try {
             await deleteDoc(doc(db, "whiteboards", id));
-            console.log("Delete successful for ID:", id);
+
             alert("Deleted successfully! ✨");
         } catch (err) {
             console.error("Delete failed for ID:", id, err);
