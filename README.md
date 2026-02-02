@@ -1,6 +1,5 @@
 # Dayzzy
 
-Daily task & focus management app
 🔗 **Live Demo:** [https://tasky-d81f5.web.app](https://tasky-d81f5.web.app)
 
 ## Available Scripts
