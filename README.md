@@ -1,13 +1,7 @@
 # Dayzzy
 
-A daily task & focus management web app.
-
-🚀 Live Demo
-https://tasky.web.app
-
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Daily task & focus management app
+🔗 **Live Demo:** [https://tasky-d81f5.web.app](https://tasky-d81f5.web.app)
 
 ## Available Scripts
 
